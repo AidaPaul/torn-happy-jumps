@@ -100,6 +100,20 @@
   .gitem dt{font-weight:700; color:var(--amber); margin:0} .gitem dd{margin:4px 0 0; color:var(--muted); font-size:14.5px}
   footer{margin-top:46px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); line-height:1.7}
   @media(max-width:560px){ .wrap{font-size:16px} .bar{grid-template-columns:78px 1fr} ol.steps li{padding-left:38px} }
+  /* comparison table */
+  .scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; margin:16px 0}
+  table.cmp{border-collapse:collapse; width:100%; min-width:660px; font-size:15px}
+  table.cmp th,table.cmp td{padding:11px 13px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top}
+  table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:none}
+  table.cmp thead th{background:var(--panel2); color:var(--muted); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; position:sticky; top:0}
+  table.cmp tbody th{white-space:nowrap; font-weight:700; color:var(--ink)}
+  table.cmp tbody tr:hover{background:var(--panel)}
+  table.cmp .g{color:var(--green); font-weight:600}
+  table.cmp .a{color:var(--amber); font-weight:600}
+  table.cmp .r{color:var(--red); font-weight:600}
+  table.cmp .v{color:var(--violet); font-weight:600}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin:10px 2px 0; font-size:13.5px; color:var(--muted)}
+  .legend b{font-weight:700}
 </style>
 </head>
 <body>
@@ -114,7 +128,7 @@
   <nav class="toc full">
     <a href="#basics">1 · Basics</a><a href="#why">2 · Why happy = gains</a><a href="#property">3 · Your property ★</a>
     <a href="#jump">4 · What a jump is</a><a href="#rules">5 · Cooldown rules</a><a href="#pick">6 · Which jump?</a>
-    <a href="#recipes">7 · Recipes</a><a href="#addiction">8 · Addiction ☠</a><a href="#glossary">Glossary</a>
+    <a href="#recipes">7 · Recipes</a><a href="#addiction">8 · Addiction ☠</a><a href="#compare">9 · Compare</a><a href="#glossary">Glossary</a>
   </nav>
 
   <div class="tldr">
@@ -315,6 +329,25 @@
   <div class="warn"><i class="ico" aria-label="danger">☠</i><strong>The biggest newbie trap — getting kicked from education.</strong> Once addiction reaches roughly a <b>6–7% brain debuff</b> (with a maxed faction Toleration perk — and <b>sooner, ~5%,</b> without it), you're <b>booted from any <span class="term" tabindex="0" data-tip="University courses. Many take weeks, months, even 1–2 years to finish. Getting kicked loses that progress and you must re-enrol and start over." title="University courses. Many take weeks, months, even 1–2 years to finish. Getting kicked loses that progress and you must re-enrol and start over.">education course</span> you're enrolled in</b> — and courses can take <b>months or years</b>. Losing that progress hurts far more than any jump gains you. <b>Watch the brain icon and rehab before it turns red</b>, or stay on low-addiction methods while studying.</div>
   <div class="warn" style="border-left-color:var(--amber);background:#241f16"><i class="ico" aria-label="warning">⚠</i>Also: once your <b>total Xanax + Ecstasy used passes 150</b>, you lose access to the drug-free <span class="term" tabindex="0" data-tip="A special drug-free gym with strong dots. Locked once total Xanax+Ecstasy used exceeds 150." title="A special drug-free gym with strong dots. Locked once total Xanax+Ecstasy used exceeds 150.">Sports Science Lab</span> gym. Rapid-Ecstasy and Xanax jumps blow past that fast.</div>
   <p><span class="ok"><i class="ico" aria-label="check">✅</i>The Lollipop Jump (1 Ecstasy/day) stays addiction-neutral</span> — your daily clear-rate keeps up, so it's the perfect forever-method. Go heavier and you'll need to <span class="term" tabindex="0" data-tip="Fly to Switzerland, pay ~$250k to remove addiction. Do it when the brain icon appears." title="Fly to Switzerland, pay ~$250k to remove addiction. Do it when the brain icon appears.">rehab</span> (~$250k a trip) — fly to Switzerland from the <b>Travel</b> page (unlocks at level 15).</p>
+
+  <h2 id="compare"><span class="n">9</span>At a glance — every jump compared</h2>
+  <p>The whole ladder in one place. <span class="g" style="color:var(--green);font-weight:700">Green</span> = good/cheap/safe,
+  <span style="color:var(--amber);font-weight:700">amber</span> = middling, <span style="color:var(--red);font-weight:700">red</span> = watch out (pricey or addictive).</p>
+  <div class="scroll">
+    <table class="cmp">
+      <thead><tr><th>Jump</th><th>Cost</th><th>How often</th><th>Gains</th><th>Addiction</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><th>🍭 Lollipop</th><td class="g">~$80k</td><td class="g">1×/day · easy</td><td class="a">small bump</td><td class="g">≈ none</td><td>everyone — day one</td></tr>
+        <tr><th>🍭🍭 Micro 12h</th><td class="g">cheap</td><td class="a">2×/day (wake + bed)</td><td class="g">good</td><td class="a">low</td><td>best value</td></tr>
+        <tr><th>🍭×6 Micro 4h</th><td class="g">cheap</td><td class="r">6×/day · all day</td><td class="g">high</td><td class="r">heavy</td><td>online a lot</td></tr>
+        <tr><th>💊 1-Xanax</th><td class="a">~$900k</td><td class="a">1×/day · +8h wait</td><td class="a">bigger</td><td class="r">heavy</td><td>a bit more energy</td></tr>
+        <tr><th>💊×4 4-Xanax</th><td class="r">~$4.4M</td><td class="r">~daily · fiddly banking</td><td class="g">big</td><td class="r">very heavy</td><td>cash-rich push</td></tr>
+        <tr><th>📀 eDvD</th><td class="r">~$100M+</td><td class="r">fiddly banking</td><td class="v">huge</td><td class="r">very heavy</td><td>rich &amp; in a hurry</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="legend"><span><b class="g">●</b> good / cheap / safe</span><span><b class="a">●</b> middling</span><span><b class="r">●</b> watch out</span><span><b class="v">●</b> off the charts</span></div>
+  <p class="muted" style="font-size:14.5px">Notice the pattern: the lollipop methods are a wall of green except for raw output, while the Xanax/eDvD rows trade green gains for red cost and addiction. <b>Most players want the top three.</b></p>
 
   <h2 id="glossary">Glossary</h2>
   <div class="grid full cols-gloss">
