@@ -407,6 +407,14 @@
   </div>
   <p class="muted" style="font-size:13px">† <b>99k Mistletoe jump</b> — the endgame "Poison Mistletoe" jump, shown here <em>for comparison only</em> (it's a buy-a-service play, not a DIY recipe). You hire a Happy-Jump host (≈4 eDvD/jump) and use <b>2 Poison Mistletoes (~$77M each)</b> to steal their Happy up to ~50k, then Ecstasy doubles it to <b>~99k</b>. By far the highest output — about <b>3.3× the eDvD jump</b> — but ~$181M <em>per jump</em>, almost all of it the two Mistletoes, which makes it the <b>worst $/stat on the board</b>. Pure "cash is no object, level me now" territory.</p>
 
+  <h3 style="margin-top:28px">Per-cycle price is for orientation — what you actually track is weekly value</h3>
+  <p style="font-size:14.5px">The per-jump prices in <a href="#recipes">§7</a> tell you what one cycle costs to pull off. But leveling is a long game, and the number that really decides how fast you grow <em>for your money</em> is <b>defense bought per dollar</b> — and that's where the methods split hard. The twist: it's <b>not</b> "training harder" that drains your wallet. The cheapest method per stat, <b>Micro-4h</b>, actually trains <em>nearly all</em> your energy at doubled Happy. The bill explodes only when you start <b>buying energy</b> (Xanax) and <b>buying Happy</b> (eDvD, Mistletoe) — premium consumables, and because the Happy curve (<a href="#why">§2</a>) keeps steepening, every extra point of Happy costs more than the last.</p>
+  <div class="chartcard full">
+    <canvas id="chart2" width="1000" height="280" role="img" aria-label="Horizontal bar chart of extra defense gained per one million dollars spent. Lollipop micro-4h buys about 4,080 defense per million dollars, micro-12h about 3,820, lolli daily about 3,140, lolli 4-Xanax about 690, eDvD about 430, and the 99k Mistletoe jump only about 190 — roughly twenty times less than lollipops."></canvas>
+    <p class="muted" style="font-size:13px;margin:8px 0 0">Extra defense (above the no-items baseline) bought per <b>$1M spent</b> — one week, same example player. Longer bar = better value. A dollar spent on <b>lollipop jumps buys ~10–21× more defense</b> than the same dollar on eDvD or Mistletoe.</p>
+  </div>
+  <p style="font-size:14.5px">So the splurge methods aren't buying <em>value</em> — they're buying <b>speed</b>: more stat <em>per week</em>, because you can cram a war's worth of training into a few days. If <b>money is your limit</b> (it usually is), steady cheap lollipop jumps win going away over any long stretch — and because gains compound as your stats rise, the value gap only <b>widens</b> the longer you play. Save the eDvD/Mistletoe blowouts for when <b>time</b> is the constraint — a war, a deadline — not as your daily driver.</p>
+
   <h2 id="glossary">Glossary</h2>
   <div class="grid full cols-gloss">
     <div class="gitem"><dt>Energy ⚡</dt><dd>Training fuel. +5/10 min, cap 100 (150 for donators).</dd></div>
@@ -460,7 +468,37 @@ function draw(){
   ctx.stroke();
   ctx.fillStyle=css("--muted");ctx.fillText("← gain per Energy",x0+4,y0+2);
 }
-draw(); window.addEventListener("resize",draw);
+
+// ── Chart 2: defense bought per $1M spent (value, not speed) ──────────────────
+const cv2=document.getElementById("chart2"), ctx2=cv2.getContext("2d");
+const BARS=[
+  {l:"Micro 4h",     v:4076, c:"--green"},
+  {l:"Micro 12h",    v:3820, c:"--green"},
+  {l:"Lolli daily",  v:3136, c:"--green"},
+  {l:"Lolli 4-Xan",  v:688,  c:"--amber"},
+  {l:"eDvD 4-Xan",   v:432,  c:"--violet"},
+  {l:"99k Mistletoe",v:194,  c:"--red"},
+];
+function draw2(){
+  const dpr=window.devicePixelRatio||1, W=cv2.clientWidth, H=280;
+  cv2.width=W*dpr; cv2.height=H*dpr; ctx2.setTransform(dpr,0,0,dpr,0,0); ctx2.clearRect(0,0,W,H);
+  const padL=104,padR=60,padT=8,padB=26, x0=padL,x1=W-padR,y0=padT,y1=H-padB;
+  const maxV=4076*1.02, n=BARS.length, gap=10, bh=(y1-y0-gap*(n-1))/n;
+  ctx2.font="12px ui-monospace,Menlo,monospace";
+  BARS.forEach((b,i)=>{
+    const by=y0+i*(bh+gap), bw=Math.max(2,(x1-x0)*(b.v/maxV));
+    ctx2.fillStyle=css("--ink"); ctx2.textAlign="right"; ctx2.textBaseline="middle";
+    ctx2.fillText(b.l, x0-8, by+bh/2);
+    ctx2.fillStyle=css(b.c); ctx2.fillRect(x0, by, bw, bh);
+    ctx2.fillStyle=css("--muted"); ctx2.textAlign="left";
+    ctx2.fillText(b.v.toLocaleString(), x0+bw+6, by+bh/2);
+  });
+  ctx2.fillStyle=css("--faint"); ctx2.textAlign="left"; ctx2.textBaseline="top";
+  ctx2.fillText("defense bought per $1M spent →", x0, y1+9);
+}
+
+function drawAll(){ draw(); draw2(); }
+drawAll(); window.addEventListener("resize",drawAll);
 </script>
 
 </body>
