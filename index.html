@@ -48,8 +48,10 @@
   p{margin:12px 0}
   a{color:var(--amber)}
   .muted{color:var(--muted)}
-  .byline{display:flex; align-items:center; gap:14px; margin:4px 0 20px}
-  .byline img{height:88px; width:auto; border-radius:10px; border:2px solid var(--amber); display:block; box-shadow:0 4px 16px rgba(0,0,0,.4)}
+  .titlerow{display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin:0 0 16px}
+  .titlerow h1{margin:0; flex:1 1 320px}
+  .byline{display:flex; align-items:center; gap:14px; margin:0; flex:0 1 auto}
+  .byline img{height:76px; width:auto; border-radius:10px; border:2px solid var(--amber); display:block; box-shadow:0 4px 16px rgba(0,0,0,.4)}
   .byline .by{font-size:15px; color:var(--muted)}
   .byline .by a{color:var(--amber); font-weight:700; text-decoration:none}
   .byline .by a:hover{text-decoration:underline}
@@ -135,11 +137,13 @@
 
 <div class="wrap">
   <p class="eyebrow">Torn · Beginner's Guide</p>
-  <h1>Happy Jumps, explained from zero</h1>
-  <div class="byline">
-    <img src="aida.gif" alt="Aida's avatar" width="364" height="500">
-    <div class="by">Created by <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener">Aida [4294353]</a> ↗
-      <span class="sub">A Torn player who did the math so you don't have to. Say hi (or send candy) in-game.</span></div>
+  <div class="titlerow">
+    <h1>Happy Jumps, explained from zero</h1>
+    <div class="byline">
+      <img src="aida.gif" alt="Aida's avatar" width="364" height="500">
+      <div class="by">Created by <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener">Aida [4294353]</a> ↗
+        <span class="sub">A Torn player who did the math so you don't have to. Say hi (or send candy) in-game.</span></div>
+    </div>
   </div>
   <p class="lede">Never trained a stat in Torn and have no idea what "happy" even is? Start here. By the end
   you'll know why your property matters most, why jumps work, and have copy-paste recipes for every one.
