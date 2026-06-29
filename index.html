@@ -48,6 +48,12 @@
   p{margin:12px 0}
   a{color:var(--amber)}
   .muted{color:var(--muted)}
+  .byline{display:flex; align-items:center; gap:14px; margin:4px 0 20px}
+  .byline img{height:88px; width:auto; border-radius:10px; border:2px solid var(--amber); display:block; box-shadow:0 4px 16px rgba(0,0,0,.4)}
+  .byline .by{font-size:15px; color:var(--muted)}
+  .byline .by a{color:var(--amber); font-weight:700; text-decoration:none}
+  .byline .by a:hover{text-decoration:underline}
+  .byline .by .sub{display:block; font-size:13px; color:var(--faint); margin-top:3px; max-width:42ch}
   /* jargon tooltip — works on hover (desktop) and tap/focus (mobile) */
   .term{border-bottom:1.5px dotted var(--amber); cursor:help; position:relative; font-weight:600; outline:none}
   .term:hover::after,.term:focus::after{content:attr(data-tip); position:absolute; left:0; bottom:140%;
@@ -130,6 +136,11 @@
 <div class="wrap">
   <p class="eyebrow">Torn · Beginner's Guide</p>
   <h1>Happy Jumps, explained from zero</h1>
+  <div class="byline">
+    <img src="aida.gif" alt="Aida's avatar" width="364" height="500">
+    <div class="by">Created by <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener">Aida [4294353]</a> ↗
+      <span class="sub">A Torn player who did the math so you don't have to. Say hi (or send candy) in-game.</span></div>
+  </div>
   <p class="lede">Never trained a stat in Torn and have no idea what "happy" even is? Start here. By the end
   you'll know why your property matters most, why jumps work, and have copy-paste recipes for every one.
   <br><b>Just want the data?</b> <a href="#compare">Skip straight to the comparison of all methods ↓</a></p>
@@ -356,7 +367,7 @@
     </table>
   </div>
   <div class="legend"><span><b class="g">●</b> good / cheap / safe</span><span><b class="a">●</b> middling</span><span><b class="r">●</b> watch out</span><span><b class="v">●</b> off the charts</span></div>
-  <p class="muted" style="font-size:14.5px">Notice the pattern: the lollipop methods are a wall of green except for raw output, while the Xanax/eDvD rows trade green gains for red cost and addiction. <b>Most players want the top three.</b></p>
+  <p class="muted" style="font-size:14.5px">Notice the pattern: the lollipop methods are cheap and barely addictive but cap out on raw output; the Xanax/eDvD rows genuinely <b>gain more</b> — they're just expensive and pile on addiction you'll have to manage (rehab). <b>New players want the top three</b>; once you've got the cash and a handle on addiction, the bottom rows simply level you faster.</p>
 
   <h3 style="margin-top:28px">Raw numbers (for the min-maxers)</h3>
   <p class="muted" style="font-size:14px">Modeled minute-by-minute for an <b>example mid-game player</b> — ~25,700 total stats, gym #9 (4.0 def dots), maxed PI — over one week. Your own numbers scale up with better gym dots and higher stats; costs are live market. <b>$/extra</b> = $ per defense point <em>above</em> the no-items baseline. <b>Addiction/wk</b> = net points added after the ~140/wk your body clears.</p>
