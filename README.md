@@ -5,8 +5,5 @@ with step-by-step recipes for every jump and the math behind why they work.
 
 **Live site:** https://aidapaul.github.io/torn-happy-jumps/
 
-- `index.html` — the beginner's guide
-- `plan.html` — a week-long jump-progression results dashboard
-
-Numbers come from a minute-by-minute training simulator validated against the live Torn API,
-the Torn wiki, and community guides.
+`index.html` is the whole site. Numbers come from a minute-by-minute training simulator
+validated against the live Torn API, the Torn wiki, and community guides.
