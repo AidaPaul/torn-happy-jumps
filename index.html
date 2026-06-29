@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Jumps — a Torn beginner's guide</title>
+<meta name="description" content="Zero-to-jumping: what energy and happy are, why your property matters most, why happy jumps work, and exact step-by-step recipes for every jump — with addiction warnings.">
+<style>
+  :root{
+    --bg:#14161b; --panel:#1c2026; --panel2:#232b34; --ink:#eceae4; --muted:#98a1a9; --faint:#646e77;
+    --line:#2b323c; --amber:#e3a93c; --green:#6cc08a; --red:#e0705a; --blue:#62a3c7; --violet:#b48ac9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0}
+  .wrap{background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+    max-width:820px; margin:0 auto; padding:clamp(16px,4vw,44px); font-size:17px;}
+  /* single column everywhere — simplest and safest across screen sizes */
+  .wrap>*{max-width:100%}
+  .full{max-width:100%}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-variant-numeric:tabular-nums}
+  .eyebrow{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); font-weight:700; margin:0 0 12px}
+  h1{font-size:clamp(30px,6vw,50px); line-height:1.04; letter-spacing:-.02em; margin:0 0 16px; font-weight:800; text-wrap:balance}
+  h2{font-size:clamp(21px,3.5vw,28px); margin:50px 0 6px; font-weight:750; letter-spacing:-.01em; scroll-margin-top:14px; text-wrap:balance}
+  h2 .n{color:var(--amber); font-family:ui-monospace,monospace; font-size:.65em; margin-right:.5em}
+  h3{font-size:18px; margin:22px 0 6px; font-weight:700}
+  .lede{font-size:clamp(17px,2.4vw,20px); opacity:.93; margin:0 0 8px}
+  p{margin:12px 0}
+  a{color:var(--amber)}
+  .muted{color:var(--muted)}
+  /* jargon tooltip — works on hover (desktop) and tap/focus (mobile) */
+  .term{border-bottom:1.5px dotted var(--amber); cursor:help; position:relative; font-weight:600; outline:none}
+  .term:hover::after,.term:focus::after{content:attr(data-tip); position:absolute; left:0; bottom:140%;
+    width:min(280px,78vw); background:#0e1014; color:var(--ink); border:1px solid var(--amber);
+    border-radius:8px; padding:9px 11px; font-size:13.5px; font-weight:400; line-height:1.45; z-index:9; box-shadow:0 6px 22px rgba(0,0,0,.55)}
+  .term:hover::before,.term:focus::before{content:""; position:absolute; left:14px; bottom:128%; border:6px solid transparent; border-top-color:var(--amber); z-index:9}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:18px 0}
+  .tldr{background:linear-gradient(180deg,#1f262e,#1a2027); border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:12px; padding:18px 20px; margin:22px 0}
+  .tldr b{color:var(--amber)}
+  .note{border-left:3px solid var(--blue); background:#192029; border-radius:0 10px 10px 0; padding:12px 16px; margin:16px 0; font-size:15.5px}
+  .warn{border-left:3px solid var(--red); background:#241a18; border-radius:0 10px 10px 0; padding:12px 16px; margin:16px 0; font-size:15.5px}
+  .warn b,.warn strong{color:var(--red)}
+  .ok{color:var(--green); font-weight:700}
+  .ico{font-style:normal; margin-right:.35em}
+  .grid{display:grid; gap:18px}
+  .cols-recipe{grid-template-columns:1fr}
+  .cols-gloss{grid-template-columns:1fr}
+  /* recipe cards */
+  .recipe{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:0; overflow:hidden; margin:0}
+  .recipe>header{padding:15px 20px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; background:#20272f}
+  .recipe>header .lvl{font-size:11px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; color:var(--c); flex-basis:100%}
+  .recipe>header h3{margin:0; font-size:20px}
+  .recipe .body{padding:6px 20px 20px}
+  .tag{font-size:12px; padding:2px 9px; border-radius:999px; font-weight:700; margin-left:auto}
+  .tag.good{color:var(--green); background:rgba(108,192,138,.13)} .tag.mid{color:var(--amber); background:rgba(227,169,60,.13)} .tag.bad{color:var(--red); background:rgba(224,112,90,.13)}
+  .need{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
+  .need .item{background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:5px 11px; font-size:14px}
+  ol.steps{margin:8px 0; padding:0; list-style:none; counter-reset:s}
+  ol.steps li{counter-increment:s; position:relative; padding:8px 0 8px 42px; border-bottom:1px solid var(--line)}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps li::before{content:counter(s); position:absolute; left:0; top:7px; width:28px; height:28px; border-radius:50%;
+    background:var(--c); color:#14161b; font-weight:800; font-family:ui-monospace,monospace; display:grid; place-items:center; font-size:14px}
+  .stat-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px; font-size:14px; color:var(--muted)}
+  .stat-row b{color:var(--ink)}
+  canvas{width:100%; height:auto; display:block; margin-top:8px}
+  .chartcard{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; margin:16px 0}
+  .bars{display:grid; gap:10px; margin:14px 0}
+  .bar{display:grid; grid-template-columns:96px 1fr; align-items:center; gap:12px; font-size:14px}
+  .bar .track{height:18px; border-radius:6px; background:var(--panel2); border:1px solid var(--line); overflow:hidden}
+  .bar .fill{height:100%}
+  /* property ladder */
+  .ladder{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:16px 0}
+  .rung{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px}
+  .rung.best{border-color:var(--green); box-shadow:inset 0 0 0 1px rgba(108,192,138,.3)}
+  .rung .nm{font-size:14px; color:var(--muted)} .rung .hp{font-size:22px; font-weight:800; font-family:ui-monospace,monospace} .rung.best .hp{color:var(--green)}
+  .toc{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; max-width:100%}
+  .toc a{font-size:13.5px; text-decoration:none; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 12px}
+  .toc a:hover{color:var(--ink); border-color:var(--amber)}
+  .gitem{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px}
+  .gitem dt{font-weight:700; color:var(--amber); margin:0} .gitem dd{margin:4px 0 0; color:var(--muted); font-size:14.5px}
+  footer{margin-top:46px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); line-height:1.7}
+  @media(max-width:560px){ .wrap{font-size:16px} .bar{grid-template-columns:78px 1fr} ol.steps li{padding-left:38px} }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <p class="eyebrow">Torn · Beginner's Guide</p>
+  <h1>Happy Jumps, explained from zero</h1>
+  <p class="lede">Never trained a stat in Torn and have no idea what "happy" even is? Start here. By the end
+  you'll know why your property matters most, why jumps work, and have copy-paste recipes for every one.</p>
+
+  <nav class="toc full">
+    <a href="#basics">1 · Basics</a><a href="#why">2 · Why happy = gains</a><a href="#property">3 · Your property ★</a>
+    <a href="#jump">4 · What a jump is</a><a href="#rules">5 · Cooldown rules</a><a href="#pick">6 · Which jump?</a>
+    <a href="#recipes">7 · Recipes</a><a href="#addiction">8 · Addiction ☠</a><a href="#glossary">Glossary</a>
+  </nav>
+
+  <div class="tldr">
+    <b>The 30-second version:</b> You train stats in the <span class="term" tabindex="0" data-tip="Where you spend Energy to raise battle stats (Strength, Speed, Defense, Dexterity)." title="Where you spend Energy to raise battle stats (Strength, Speed, Defense, Dexterity).">gym</span>
+    by spending <span class="term" tabindex="0" data-tip="Training fuel. +5 every 10 min, cap 100 (150 for donators). Each train spends some." title="Training fuel. +5 every 10 min, cap 100 (150 for donators). Each train spends some.">Energy</span>.
+    The higher your <span class="term" tabindex="0" data-tip="The yellow bar. The biggest multiplier on stat gained per Energy — and it grows faster than linearly." title="The yellow bar. The biggest multiplier on stat gained per Energy — and it grows faster than linearly.">Happy</span> when you train, the more stat you get — a <b>lot</b> more.
+    Your <span class="term" tabindex="0" data-tip="Your housing. Sets your maximum Happy. A fully-kitted Private Island = 5,025, the highest." title="Your housing. Sets your maximum Happy. A fully-kitted Private Island = 5,025, the highest.">property</span> sets your base Happy (get this up — <a href="#property">§3</a>).
+    A <span class="term" tabindex="0" data-tip="Stuffing Happy far over your max with candy, doubling it with Ecstasy, then training fast before it resets." title="Stuffing Happy far over your max with candy, doubling it with Ecstasy, then training fast before it resets.">happy jump</span> stacks Happy with cheap candy, doubles it with one
+    <span class="term" tabindex="0" data-tip="A drug that instantly doubles your current Happy. The core of every jump." title="A drug that instantly doubles your current Happy. The core of every jump.">Ecstasy</span>, and dumps your Energy in that window.
+    <b>Newbie move: do the Lollipop Jump (<a href="#recipes">§7</a>) — ~$80k, barely addictive.</b>
+  </div>
+
+  <h2 id="basics"><span class="n">1</span>The absolute basics</h2>
+  <p>Three things drive training:</p>
+  <div class="bars">
+    <div class="bar"><span><i class="ico" aria-label="energy">⚡</i>Energy</span><div class="track"><div class="fill" style="width:70%;background:var(--amber)"></div></div></div>
+    <div class="bar"><span><i class="ico" aria-label="happy">😊</i>Happy</span><div class="track"><div class="fill" style="width:55%;background:var(--green)"></div></div></div>
+    <div class="bar"><span><i class="ico" aria-label="gym">🏋</i>Gym dots</span><div class="track"><div class="fill" style="width:40%;background:var(--blue)"></div></div></div>
+  </div>
+  <p><b><i class="ico" aria-label="energy">⚡</i>Energy</b> is your fuel — <b>+5 every 10 minutes</b> (~720/day). Your bar is capped at <b>100</b>, or <b>150 if you're a donator</b>. Each gym train spends a fixed chunk. A full bar going unspent = wasted regen.</p>
+  <div class="note"><i class="ico" aria-label="money">💲</i><b>Day-one tip: become a donator.</b> A <span class="term" tabindex="0" data-tip="A donator pack — about $5. Raises your Energy max from 100 to 150, plus other perks." title="A donator pack — about $5. Raises your Energy max from 100 to 150, plus other perks.">donator pack</span> is only about <b>$5</b> and raises your Energy maximum from <b>100 → 150</b> — that's <b>50% more training every single session</b>, so it pays for itself almost immediately. Non-donators are stuck at 100 Energy max; donators get 150. Strongly recommended even on your first day.</div>
+  <p><b><i class="ico" aria-label="happy">😊</i>Happy</b> is the yellow bar and your gains multiplier. Its normal max comes from your <b>property</b> (more on that next). Jumping blows past that cap temporarily.</p>
+  <p><b><i class="ico" aria-label="gym">🏋</i>Gym dots</b> rate how good your gym is per stat (0–10). Better gym = more stat per Energy; you unlock better gyms by training a lot.</p>
+
+  <div class="note"><i class="ico" aria-label="map">🧭</i><b>Where this stuff is in Torn:</b> your <b>Energy</b> and <b>Happy</b> bars sit at the top of the screen, next to the <b>TCT clock</b> — Torn's own server clock, and the one the :15 Happy-resets follow (watch <em>that</em> clock, not your local time). Buy lollipops, Ecstasy and Xanax from the <b>Items Market</b> (City → Items Market). Train at the <b>Gym</b> (left menu → Gym). <b>Points</b> are an in-game currency you buy from other players (not real money); the <b>Points Building</b> (City → Points Building) does the energy refill. Flying abroad and <b>rehab</b> unlock at <b>level 15</b>, on the <b>Travel</b> page.</div>
+  <p><b>New player tip:</b> at the start, just train <b>all four stats evenly</b> until you're around <b>20k total</b> — a balanced base is most useful early. After that you can start specializing into one stat. (The recipes work the same either way; just train whichever stat you're topping up.)</p>
+  <h2 id="why"><span class="n">2</span>Why Happy = gains (the one chart that matters)</h2>
+  <p>Gains rise <b>faster and faster</b> with Happy — doubling Happy gives <em>more</em> than double the gain per Energy. Here's the real curve from the game's formula for an example player:</p>
+  <div class="chartcard full">
+    <canvas id="chart" width="1000" height="340" role="img" aria-label="Chart of stat gain per energy rising steeply as happy climbs from 0 to 25,000, with the normal max around 5,025 marked."></canvas>
+    <p class="muted" style="font-size:13px;margin:8px 0 0">Stat gained per 1 Energy as Happy climbs. The dashed line is a maxed-property max (~5,025) — the steep part beyond is what jumps buy.</p>
+  </div>
+  <p>This is why low-happy players gain almost nothing, and why where you <em>start</em> on this curve — your property — is the single biggest decision you make.</p>
+
+  <h2 id="property"><span class="n">3</span>Your property is the #1 lever — get to 5k Happy ASAP</h2>
+  <p>Your <b>base Happy</b> is set entirely by your property, and it does two huge things: it's the Happy you train at <em>all day</em> when not jumping, <b>and</b> it's the floor every jump multiplies (a jump = <span class="mono">(base + candy) × 2</span>). Raise your base and you raise <em>everything</em> at once.</p>
+  <div class="ladder full">
+    <div class="rung"><div class="nm">Shack</div><div class="hp">100</div></div>
+    <div class="rung"><div class="nm">Apartment</div><div class="hp">~190</div></div>
+    <div class="rung"><div class="nm">Villa</div><div class="hp">~800</div></div>
+    <div class="rung"><div class="nm">Mansion +staff</div><div class="hp">1,725</div></div>
+    <div class="rung"><div class="nm">Castle +staff</div><div class="hp">3,475</div></div>
+    <div class="rung best"><div class="nm">Private Island ★</div><div class="hp">5,025</div></div>
+  </div>
+  <p><b>How much does base Happy actually matter?</b> A minute-by-minute sim of pure gym training (no items at all) shows a maxed <span class="term" tabindex="0" data-tip="Private Island. Base 2,000 happy; fully upgraded with staff = 5,025, the game's normal max. Costs ~$500M base, ~$1.95B fully kitted, ~$352k/day upkeep." title="Private Island. Base 2,000 happy; fully upgraded with staff = 5,025, the game's normal max. Costs ~$500M base, ~$1.95B fully kitted, ~$352k/day upkeep.">Private Island</span> player gains about roughly <b class="ok">4–5× more stat per week</b> (and far more — 10×+ — when your stats are still low) than a 100-Happy player — for <b>zero items and zero addiction</b>. Your property out-trains most jump strategies just by existing.</p>
+  <div class="note"><i class="ico" aria-label="why">💡</i><b>Why "ASAP"?</b> Because high base Happy compounds with <em>everything</em> else you ever do — every train, every jump, forever. It's the one upgrade that never stops paying.</div>
+  <div class="warn" style="border-left-color:var(--green);background:#16231b"><i class="ico" aria-label="tip">💸</i><strong style="color:var(--green)">Don't buy one — rent it.</strong> A fully-kitted Private Island is ~$1.95B <em>plus</em> ~$352k/day upkeep. For almost everyone that's a money pit and a waste. The smart move is to <span class="term" tabindex="0" data-tip="Pay a one-time fee to use another player's property — with all its upgrades and Happy — for a set time. No daily upkeep. Far cheaper than buying." title="Pay a one-time fee to use another player's property — with all its upgrades and Happy — for a set time. No daily upkeep. Far cheaper than buying.">lease (rent)</span> one.</div>
+  <p>Renting gets you the <b>exact same Happy</b> for a tiny fraction of the cost:</p>
+  <ol class="steps" style="--c:var(--green)">
+    <li><b>Lease from another player.</b> One upfront fee, no daily upkeep, and you get the property's full Happy — a leased, fully-upgraded PI hands you the whole <b>5,025</b>.</li>
+    <li><b>Just ask on the forums (or in your <span class="term" tabindex="0" data-tip="A group of players you join — they share perks and often help newer members." title="A group of players you join — they share perks and often help newer members.">faction</span>).</b> Established players regularly lease newbies a property to help them grow — often a <span class="term" tabindex="0" data-tip="A property worth ~600 Happy base, up to ~1,925 fully upgraded with staff. A big step up from a Shack's 100." title="A property worth ~600 Happy base, up to ~1,925 fully upgraded with staff. A big step up from a Shack's 100.">Ranch</span> (~600–1,925 Happy) or even a <b>Private Island</b> — for as little as <b>$1</b>. Post a polite ask in a newbie/help thread; the community does this a lot.</li>
+    <li>Only <em>buy</em> once you're seriously rich and want it permanent. Until then, rent and put your money into training.</li>
+  </ol>
+  <div class="note"><i class="ico" aria-label="note">🏝</i>Upgraded-Happy ladder: Ranch ~600–1,925 · Castle 3,475 · Private Island up to <b>5,025</b>. Get your base Happy as high as you can <em>cheaply</em> — leasing is how. You can also add the <span class="term" tabindex="0" data-tip="A property upgrade that adds Happy (and faster private travel)." title="A property upgrade that adds Happy (and faster private travel).">airstrip</span> upgrade for a little extra Happy.</div>
+
+  <h2 id="jump"><span class="n">4</span>What a "jump" actually is</h2>
+  <p>Four moves, fast, in order:</p>
+  <ol class="steps" style="--c:var(--amber)">
+    <li><b>Stack Happy</b> with cheap candy (each <span class="term" tabindex="0" data-tip="Item 310. +25 Happy, ~$850 — the cheapest Happy per dollar, ~47× better than chocolate." title="Item 310. +25 Happy, ~$850 — the cheapest Happy per dollar, ~47× better than chocolate.">lollipop</span> = +25). Eat a pile to push Happy over your max.</li>
+    <li><b>Double it</b> with one <span class="term" tabindex="0" data-tip="Drug. Doubles your current Happy. ~4h cooldown, +20 addiction." title="Drug. Doubles your current Happy. ~4h cooldown, +20 addiction.">Ecstasy</span> — the multiplier that makes a jump worth it.</li>
+    <li><b>Dump your Energy</b> training in the gym, immediately, while Happy is sky-high.</li>
+    <li><b>Beat the clock.</b> Over-max Happy <span class="term" tabindex="0" data-tip="Any Happy above your max snaps back to your max at xx:00/15/30/45. Finish training before the next quarter-hour." title="Any Happy above your max snaps back to your max at xx:00/15/30/45. Finish training before the next quarter-hour.">resets every 15 minutes</span>, so start a jump just after a :15 mark and click fast.</li>
+  </ol>
+  <div class="note"><i class="ico" aria-label="timing">⏱</i><b>Timing trick:</b> wait until the clock just passes :00/:15/:30/:45, <em>then</em> candy → Ecstasy → train. Full window, no waste.</div>
+
+  <h2 id="rules"><span class="n">5</span>The rules you can't break (cooldowns)</h2>
+  <div class="grid full cols-gloss">
+    <div class="card" style="margin:0"><h3 style="margin-top:0"><i class="ico" aria-label="candy">🍬</i>Booster cooldown — limits candy</h3>
+      <p style="margin-bottom:0">Each candy adds to your <span class="term" tabindex="0" data-tip="Fills as you eat candy/boosters. Caps at 24h — can't eat more once maxed." title="Fills as you eat candy/boosters. Caps at 24h — can't eat more once maxed.">booster cooldown</span> (lollipop +30 min). It <b>caps at 24h</b>, so <b>49 lollipops/day total</b> — one big jump, or split into several small ones.</p></div>
+    <div class="card" style="margin:0"><h3 style="margin-top:0"><i class="ico" aria-label="pill">💊</i>Drug cooldown — limits drugs</h3>
+      <p style="margin-bottom:0">Can't take a drug while a <span class="term" tabindex="0" data-tip="Timer after a drug. Taking another while it runs = overdose. Ecstasy ~4h, Xanax ~8h." title="Timer after a drug. Taking another while it runs = overdose. Ecstasy ~4h, Xanax ~8h.">drug cooldown</span> runs, or you <span class="term" tabindex="0" data-tip="Taking a drug on cooldown — causes stat loss + a long penalty. Always wait." title="Taking a drug on cooldown — causes stat loss + a long penalty. Always wait.">overdose</span>. Ecstasy ~4h, <span class="term" tabindex="0" data-tip="Item 206. +250 Energy, +75 Happy, ~8h cooldown, +35 addiction." title="Item 206. +250 Energy, +75 Happy, ~8h cooldown, +35 addiction.">Xanax</span> ~8h.</p></div>
+  </div>
+  <p>So a <em>full</em> 49-candy jump = once a day. The workaround, <b>micro-jumps</b>, splits those candies into smaller, more frequent jumps so more of your Energy lands at high Happy.</p>
+
+  <h2 id="pick"><span class="n">6</span>Which jump should I do?</h2>
+  <div class="card">
+    <p><span class="ok">★ New &amp; broke?</span> → <b>Lollipop Jump</b>, once a day. ~$80k, almost no addiction. Pure upside.</p>
+    <p><span style="color:var(--amber);font-weight:700">◆ Best bang for buck?</span> → <b>Lollipop Micro 12h</b> (two small jumps a day — waking &amp; bedtime). Great value, manageable addiction.</p>
+    <p><span style="color:var(--blue);font-weight:700">▲ Online a lot / max gains?</span> → <b>Micro 4h</b> or <b>Xanax jumps</b> — far more output, but watch addiction and your wallet.</p>
+    <p style="margin-bottom:0"><span style="color:var(--red);font-weight:700">☠ Rich and in a hurry?</span> → <b>eDvD jump</b>. Enormous gains, enormous cost, heavy addiction. Not a beginner move.</p>
+  </div>
+
+  <h2 id="recipes"><span class="n">7</span>Step-by-step recipes</h2>
+  <p class="muted">These recipes assume you've sorted your property first (<a href="#property">§3</a>) — the higher your base Happy, the more every jump is worth.</p>
+  <div class="note"><i class="ico" aria-label="optional">🎟</i><b>About the energy refill (works on every jump below):</b> at the
+  <span class="term" tabindex="0" data-tip="A building in Torn. Once per ~24h you can spend 30 Points (≈$1M) to instantly refill your Energy to 150." title="A building in Torn. Once per ~24h you can spend 30 Points (≈$1M) to instantly refill your Energy to 150.">Points Building</span>
+  you can spend <b>30 Points (≈$1M)</b> to refill your Energy to 150. Do it <em>during</em> a jump — right after you've trained your
+  Energy, while your Happy is still doubled — and you get to train another 150 at that high Happy. <b>It's highly recommended but
+  totally optional</b> — it costs money and only works <b>once per ~24 hours</b>, so skip it if you're low on Points or saving them.</div>
+  <section class="full grid cols-recipe">
+    <div class="recipe" style="--c:var(--green)">
+      <header><span class="lvl">Level 1 · start here</span><h3>🍭 The Lollipop Jump</h3><span class="tag good">~$80k · safe</span></header>
+      <div class="body">
+        <p class="muted">Cheap, safe, do it every day forever.</p>
+        <div class="need"><span class="item">🍭 49 Lollipops</span><span class="item">💊 1 Ecstasy</span><span class="item">🎟 30 Points <span class="muted">(optional)</span></span></div>
+        <ol class="steps" style="--c:var(--green)">
+          <li>Buy the items (~<span class="mono">$80,000</span> total).</li>
+          <li>Let <b>Energy</b> fill to 100 (150 for donators).</li>
+          <li>Wait until the clock just passes :00/:15/:30/:45.</li>
+          <li>Eat all <b>49 Lollipops</b> (Happy +1,225 over max).</li>
+          <li>Take the <b>Ecstasy</b> — Happy instantly <b>doubles</b>.</li>
+          <li><b>Spend all Energy</b> in the gym, fast.</li>
+          <li><b>(Optional, recommended)</b> Points-refill (+150 Energy, ≈$1M) and spend that 150 too, still in the window — it roughly <b>doubles</b> this jump's boosted training.</li>
+        </ol>
+        <div class="stat-row"><span>Result: <b>~2×</b> gains on that Energy</span><span>Addiction: <b class="ok">~0</b></span></div>
+      </div>
+    </div>
+
+    <div class="recipe" style="--c:var(--amber)">
+      <header><span class="lvl">Level 1.5 · best value</span><h3>🍭🍭 Lollipop Micro-jumps</h3><span class="tag mid">cheap · more output</span></header>
+      <div class="body">
+        <p class="muted">Same candy budget, split smaller so more of your Energy is boosted (you can only eat 49 lollipops/day either way).</p>
+        <h3 style="margin-top:6px">Twice a day (12h) — the sweet spot</h3>
+        <ol class="steps" style="--c:var(--amber)">
+          <li>On waking: full Energy, wait for a :15, eat <b>~24 Lollipops</b> + <b>1 Ecstasy</b>, train.</li>
+          <li>Before bed (~12h later): repeat with <b>~24</b> + <b>1 Ecstasy</b>.</li>
+        </ol>
+        <h3>Every 4h (rapid) — max value</h3>
+        <ol class="steps" style="--c:var(--amber)">
+          <li>Every ~4h (6×/day): <b>~8 Lollipops</b> + <b>1 Ecstasy</b>, train the Energy built up.</li>
+          <li>Trains <b>nearly all</b> your daily Energy boosted — best $/stat there is.</li>
+        </ol>
+        <div class="warn"><i class="ico" aria-label="warning">⚠</i><b>Catch:</b> 6 Ecstasy/day = lots of addiction (<a href="#addiction">§8</a>). The 12h version is friendlier.</div>
+        <div class="note"><i class="ico" aria-label="optional">🎟</i><b>Energy refill (optional):</b> you only get one per ~24h. On the <b>12h</b> plan, use it on one of your two jumps for +150 at high Happy. On the <b>4h</b> plan it covers just 1 of 6 jumps, so it barely helps — save your Points.</div>
+      </div>
+    </div>
+
+    <div class="recipe" style="--c:var(--blue)">
+      <header><span class="lvl">Level 2 · your first Xanax jump</span><h3>💊 The 1-Xanax Jump</h3><span class="tag bad">~$900k · addictive</span></header>
+      <div class="body">
+        <p class="muted">One Xanax adds 250 Energy, so you train 400 Energy at high Happy instead of 150. The simplest way to jump bigger.</p>
+        <div class="need"><span class="item">🍭 49 Lollipops</span><span class="item">💊 1 Xanax</span><span class="item">💊 1 Ecstasy</span><span class="item">🎟 30 Points <span class="muted">(optional)</span></span></div>
+        <ol class="steps" style="--c:var(--blue)">
+          <li>Buy the items (~<span class="mono">$900,000</span> total — almost all of it the Xanax).</li>
+          <li>Let your <b>Energy</b> fill to <b>150</b> (its normal max).</li>
+          <li>Take the <b>1 Xanax</b>. Your Energy jumps to <b>400</b>.</li>
+          <li><b>Wait about 8 hours</b> for the Xanax drug cooldown to finish. <em>Don't take the Ecstasy yet</em> — taking a second drug now would overdose you.</li>
+          <li>Once the cooldown is gone, wait until the clock just passes <b>:00, :15, :30, or :45</b>.</li>
+          <li>Eat all <b>49 Lollipops</b>.</li>
+          <li>Take the <b>1 Ecstasy</b> — your Happy doubles.</li>
+          <li>Go to the gym and <b>spend all 400 Energy</b>, fast.</li>
+          <li><b>(Optional, recommended)</b> Points-refill (+150 Energy, ≈$1M) and spend that 150 too, still in the window.</li>
+        </ol>
+        <div class="note"><i class="ico" aria-label="tip">💡</i><b>Lollipops, not chocolate.</b> Chocolate gives +35 Happy but costs ~65× a lollipop (+25). After Ecstasy doubles it the gap is tiny — chocolate is a trap.</div>
+        <div class="note"><i class="ico" aria-label="note">ℹ️</i>The Xanax's +75 Happy resets at the next :15 mark, so it's <b>gone by jump time</b> — your jump Happy comes from the lollipops + Ecstasy, not the Xanax.</div>
+        <div class="stat-row"><span>Trains <b>400</b> Energy at ~2× Happy</span><span>Addiction this jump: <b style="color:var(--red)">+55</b> (35+20)</span></div>
+      </div>
+    </div>
+
+    <div class="recipe" style="--c:var(--blue)">
+      <header><span class="lvl">Level 2 · the big one</span><h3>💊💊💊💊 The 4-Xanax Jump</h3><span class="tag bad">~$4.4M · very addictive</span></header>
+      <div class="body">
+        <p class="muted">Bank four Xanax over a day to reach 1,000 Energy, then dump it all in one jump plus a refill. Big gains, but a lot of waiting and addiction.</p>
+        <div class="need"><span class="item">🍭 49 Lollipops</span><span class="item">💊 4 Xanax</span><span class="item">💊 1 Ecstasy</span><span class="item">🎟 30 Points</span></div>
+        <ol class="steps" style="--c:var(--blue)">
+          <li>Buy the items (~<span class="mono">$4,400,000</span> total — mostly the 4 Xanax).</li>
+          <li>First, <b>spend all your current Energy</b> in the gym (train down to 0) — the Energy numbers below assume you start empty.</li>
+          <li>Take your <b>1st Xanax</b>. Energy → 250.</li>
+          <li><b>Wait about 8 hours</b> (the drug cooldown), then take your <b>2nd Xanax</b>. Energy → 500.</li>
+          <li>Wait <b>about 8 hours</b> again, take your <b>3rd Xanax</b>. Energy → 750.</li>
+          <li>Wait <b>about 8 hours</b> again, take your <b>4th Xanax</b>. Energy → <b>1,000</b>. (Steps 2–5 take roughly a full day.)</li>
+          <li><b>Wait about 8 more hours</b> for that last Xanax's cooldown to finish — so the Ecstasy won't overdose you.</li>
+          <li>Now wait until the clock just passes <b>:00, :15, :30, or :45</b>.</li>
+          <li>Eat all <b>49 Lollipops</b>.</li>
+          <li>Take the <b>1 Ecstasy</b> — your Happy doubles.</li>
+          <li><b>Spend all 1,000 Energy</b> in the gym, fast.</li>
+          <li>Use a <span class="term" tabindex="0" data-tip="Spend 30 Points (≈$1M) at the Points Building to refill Energy to 150. Has its own ~24h cooldown." title="Spend 30 Points (≈$1M) at the Points Building to refill Energy to 150. Has its own ~24h cooldown.">Points energy refill</span> (30 Points, ≈$1M). Energy → 150.</li>
+          <li><b>Spend that 150 Energy too</b> — still inside the same 15-minute window.</li>
+        </ol>
+        <div class="warn"><i class="ico" aria-label="warning">⚠</i>While Energy is over 150 (the whole day of banking), your normal regen is <b>wasted</b>. And the drugs hit you two separate ways: <b>+160 addiction points</b> (4×35 + 20) toward the brain debuff, and <b>5 doses</b> (4 Xanax + 1 Ecstasy) toward the separate <b>150-dose</b> Sports Science Lab lockout (<a href="#addiction">§8</a>) — about 30 such jumps (~6 weeks) would lock you out of that gym.</div>
+      </div>
+    </div>
+
+    <div class="recipe" style="--c:var(--violet)">
+      <header><span class="lvl">Level 3 · advanced</span><h3>📀 The eDvD Jump</h3><span class="tag bad">~$100M+ · very addictive</span></header>
+      <div class="body">
+        <p class="muted">Use <span class="term" tabindex="0" data-tip="Erotic DVD, item 366. +2,500 Happy each (~$4.3M) — the strongest Happy item." title="Erotic DVD, item 366. +2,500 Happy each (~$4.3M) — the strongest Happy item.">eDvDs</span> (+2,500 Happy each) for absurd Happy. Gains explode; so does the bill.</p>
+        <div class="need"><span class="item">📀 4–5 eDvD</span><span class="item">💊 4 Xanax</span><span class="item">💊 1 Ecstasy</span><span class="item">🎟 30 Points</span></div>
+        <ol class="steps" style="--c:var(--violet)">
+          <li>Bank <b>4 Xanax</b> over ~a day for ~1,000 Energy.</li>
+          <li>Wait for cooldowns + a :15. Use <b>4–5 eDvD</b> (Happy +10–12.5k).</li>
+          <li>Take <b>Ecstasy</b> — Happy doubles to ~25–35k.</li>
+          <li>Dump Energy, Points-refill, dump again — all inside one 15-min window.</li>
+        </ol>
+        <div class="warn"><i class="ico" aria-label="warning">⚠</i>~5× a beginner's output, but ~<b>$100M/week</b> and the heaviest addiction. Only when time beats money.</div>
+      </div>
+    </div>
+  </section>
+
+  <h2 id="addiction"><span class="n">8</span>Addiction — the thing that bites newbies</h2>
+  <p>Every drug adds hidden <span class="term" tabindex="0" data-tip="Hidden counter that rises with each drug. High addiction shrinks battle stats, kicks you from education, and can lock you out of gyms." title="Hidden counter that rises with each drug. High addiction shrinks battle stats, kicks you from education, and can lock you out of gyms.">addiction points</span>. This is the real cost of big jumps:</p>
+  <ul>
+    <li><b>Xanax = +35</b>, <b>Ecstasy = +20</b> per dose.</li>
+    <li>Your body clears about <b>20/day</b> (~140/week).</li>
+    <li>Too much → growing battle-stat penalty (−1%, −2%, −3%…) shown by a reddening brain icon.</li>
+  </ul>
+  <p><b>Two different counters, don't confuse them:</b> (1) <b>addiction points</b> — rise with each drug and fall ~20/day; these drive the brain-icon stat debuff and the education kick. (2) <b>lifetime Xanax+Ecstasy doses used</b> — only ever goes up, and once it passes <b>150 doses</b> it locks you out of the drug-free Sports Science Lab gym.</p>
+  <div class="warn"><i class="ico" aria-label="danger">☠</i><strong>The biggest newbie trap — getting kicked from education.</strong> Once addiction reaches roughly a <b>6–7% brain debuff</b> (with a maxed faction Toleration perk — and <b>sooner, ~5%,</b> without it), you're <b>booted from any <span class="term" tabindex="0" data-tip="University courses. Many take weeks, months, even 1–2 years to finish. Getting kicked loses that progress and you must re-enrol and start over." title="University courses. Many take weeks, months, even 1–2 years to finish. Getting kicked loses that progress and you must re-enrol and start over.">education course</span> you're enrolled in</b> — and courses can take <b>months or years</b>. Losing that progress hurts far more than any jump gains you. <b>Watch the brain icon and rehab before it turns red</b>, or stay on low-addiction methods while studying.</div>
+  <div class="warn" style="border-left-color:var(--amber);background:#241f16"><i class="ico" aria-label="warning">⚠</i>Also: once your <b>total Xanax + Ecstasy used passes 150</b>, you lose access to the drug-free <span class="term" tabindex="0" data-tip="A special drug-free gym with strong dots. Locked once total Xanax+Ecstasy used exceeds 150." title="A special drug-free gym with strong dots. Locked once total Xanax+Ecstasy used exceeds 150.">Sports Science Lab</span> gym. Rapid-Ecstasy and Xanax jumps blow past that fast.</div>
+  <p><span class="ok"><i class="ico" aria-label="check">✅</i>The Lollipop Jump (1 Ecstasy/day) stays addiction-neutral</span> — your daily clear-rate keeps up, so it's the perfect forever-method. Go heavier and you'll need to <span class="term" tabindex="0" data-tip="Fly to Switzerland, pay ~$250k to remove addiction. Do it when the brain icon appears." title="Fly to Switzerland, pay ~$250k to remove addiction. Do it when the brain icon appears.">rehab</span> (~$250k a trip) — fly to Switzerland from the <b>Travel</b> page (unlocks at level 15).</p>
+
+  <h2 id="glossary">Glossary</h2>
+  <div class="grid full cols-gloss">
+    <div class="gitem"><dt>Energy ⚡</dt><dd>Training fuel. +5/10 min, cap 100 (150 for donators).</dd></div>
+    <div class="gitem"><dt>Happy 😊</dt><dd>The yellow bar; your gains multiplier. Max set by your property.</dd></div>
+    <div class="gitem"><dt>Property</dt><dd>Your housing; sets base Happy. Best = Private Island at 5,025.</dd></div>
+    <div class="gitem"><dt>Happy jump</dt><dd>Stacking Happy over max with candy + Ecstasy, then training fast.</dd></div>
+    <div class="gitem"><dt>Ecstasy</dt><dd>Drug that doubles current Happy. ~4h CD, +20 addiction.</dd></div>
+    <div class="gitem"><dt>Xanax</dt><dd>+250 Energy, +75 Happy. ~8h CD, +35 addiction.</dd></div>
+    <div class="gitem"><dt>Lollipop</dt><dd>+25 Happy candy (~$850). Cheapest Happy per dollar.</dd></div>
+    <div class="gitem"><dt>eDvD</dt><dd>+2,500 Happy each (~$4.3M). For huge Happy.</dd></div>
+    <div class="gitem"><dt>Booster cooldown</dt><dd>From candy/boosters. Caps 24h → 49 lollipops/day.</dd></div>
+    <div class="gitem"><dt>Donator</dt><dd>Someone with a donator pack — cheap (~$5) and worth it even on day one. Raises your Energy max from <b>100 to 150</b> (50% more training per session) plus other perks. Get it early.</dd></div>
+    <div class="gitem"><dt>Drug cooldown</dt><dd>From drugs. Taking another while it runs = overdose.</dd></div>
+    <div class="gitem"><dt>Addiction</dt><dd>Hidden drug counter. Too much = penalties + gym lockout.</dd></div>
+    <div class="gitem"><dt>15-min reset</dt><dd>Over-max Happy snaps to your max at :00/:15/:30/:45.</dd></div>
+    <div class="gitem"><dt>Points refill</dt><dd>~30 Points (≈$1M) to refill Energy to 150. ~24h CD.</dd></div>
+  </div>
+
+  <footer>
+    A beginner's guide to Torn happy-jump training. Numbers (gains, costs, addiction, cooldowns, property Happy)
+    come from a minute-by-minute training simulator validated against the live Torn API, the Torn wiki, and
+    community guides. Mechanics current as of mid-2026 — Torn occasionally patches; verify in-game if something looks off.
+    Early on, train all four stats evenly (until ~20k total), then specialize. Get your property up, do the lollipop jump, and don't get hooked. 🧠
+    <br><br><b>Prices</b> (lollipop ~$850, Ecstasy ~$38k, Xanax ~$842k, eDvD ~$4.3M, Point ~$31k) are live
+    market values captured from the Torn market on <b>2026-06-29</b> and drift constantly — treat them as ballpark, not gospel.
+  </footer>
+</div>
+
+<script>
+const cv=document.getElementById("chart"), ctx=cv.getContext("2d");
+const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const TOT=15000, DOTS=6, A=2100, B=-600;
+function gpe(H){
+  const lm=Math.round((1+0.07*Math.round(Math.log(1+H/250)*1e4)/1e4)*1e4)/1e4;
+  return (1/200000)*DOTS*(TOT*lm + 8*Math.pow(H,1.05) + (1-Math.pow(Math.min(H,99999)/99999,2))*A + B);
+}
+function draw(){
+  const dpr=window.devicePixelRatio||1, W=cv.clientWidth, H=Math.min(340,Math.max(240,W*0.42));
+  cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
+  const padL=46,padR=14,padT=14,padB=28, x0=padL,x1=W-padR,y0=padT,y1=H-padB;
+  const maxH=25000, maxY=gpe(maxH)*1.05, X=h=>x0+(x1-x0)*(h/maxH), Y=v=>y1-(y1-y0)*(v/maxY);
+  ctx.font="11px ui-monospace,Menlo,monospace"; ctx.textBaseline="middle"; ctx.textAlign="right";
+  for(let g=0;g<=4;g++){const v=maxY*g/4,y=Y(v); ctx.strokeStyle=css("--line");ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();
+    ctx.fillStyle=css("--faint");ctx.fillText(v.toFixed(1),x0-6,y);}
+  ctx.textAlign="center";ctx.textBaseline="top";
+  [0,5025,10000,15000,20000,25000].forEach(h=>{ctx.fillStyle=css("--faint");ctx.fillText(h>=1000?(h/1000)+"k":h,X(h),y1+8);});
+  ctx.strokeStyle=css("--green");ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(X(5025),y0);ctx.lineTo(X(5025),y1);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle=css("--green");ctx.textAlign="left";ctx.fillText("max PI ~5,025",X(5025)+6,y0+3);
+  ctx.strokeStyle=css("--amber");ctx.lineWidth=2.6;ctx.beginPath();
+  for(let h=0;h<=maxH;h+=200){const x=X(h),y=Y(gpe(h)); h?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+  ctx.stroke();
+  ctx.fillStyle=css("--muted");ctx.fillText("← gain per Energy",x0+4,y0+2);
+}
+draw(); window.addEventListener("resize",draw);
+</script>
+
+</body>
+</html>
