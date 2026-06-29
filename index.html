@@ -51,7 +51,9 @@
   .titlerow{display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin:0 0 16px}
   .titlerow h1{margin:0; flex:1 1 320px}
   .byline{display:flex; align-items:center; gap:14px; margin:0; flex:0 1 auto}
-  .byline img{height:76px; width:auto; border-radius:10px; border:2px solid var(--amber); display:block; box-shadow:0 4px 16px rgba(0,0,0,.4)}
+  .byline>a{display:block; line-height:0; border-radius:10px}
+  .byline img{height:76px; width:auto; border-radius:10px; border:2px solid var(--amber); display:block; box-shadow:0 4px 16px rgba(0,0,0,.4); transition:transform .12s ease, box-shadow .12s ease}
+  .byline>a:hover img{transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.55)}
   .byline .by{font-size:15px; color:var(--muted)}
   .byline .by a{color:var(--amber); font-weight:700; text-decoration:none}
   .byline .by a:hover{text-decoration:underline}
@@ -140,7 +142,7 @@
   <div class="titlerow">
     <h1>Happy Jumps, explained from zero</h1>
     <div class="byline">
-      <img src="aida.gif" alt="Aida's avatar" width="364" height="500">
+      <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener"><img src="aida.gif" alt="Aida's avatar" width="364" height="500"></a>
       <div class="by">Created by <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener">Aida [4294353]</a> ↗
         <span class="sub">A Torn player who did the math so you don't have to. Say hi (or send candy) in-game.</span></div>
     </div>
