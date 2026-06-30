@@ -4,7 +4,6 @@ A free, no-fluff guide to **happy-jump training in [Torn](https://www.torn.com/)
 
 ### 👉 Read it: **https://aidapaul.github.io/torn-happy-jumps/**
 
-- 📊 One-page visual **TLDR**: https://aidapaul.github.io/torn-happy-jumps/tldr/
 - 💬 Feedback / upvotes: [the forum thread](https://www.torn.com/forums.php#/p=threads&f=61&t=16578875&b=0&a=0)
 
 ---
