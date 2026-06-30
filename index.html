@@ -26,8 +26,8 @@
 <meta name="description" content="Zero-to-jumping: what energy and happy are, why your property matters most, why happy jumps work, and exact step-by-step recipes for every jump — with addiction warnings.">
 <style>
   :root{
-    --bg:#14161b; --panel:#1c2026; --panel2:#232b34; --ink:#eceae4; --muted:#98a1a9; --faint:#646e77;
-    --line:#2b323c; --amber:#e3a93c; --green:#6cc08a; --red:#e0705a; --blue:#62a3c7; --violet:#b48ac9;
+    --bg:#120b1c; --panel:#1d1430; --panel2:#281b40; --ink:#f3eff9; --muted:#a99fc0; --faint:#7a7090;
+    --line:#352848; --amber:#ffb13d; --green:#56e08f; --red:#ff6b6b; --blue:#39cdf0; --violet:#bd7bff; --pink:#ff3db5;
   }
   *{box-sizing:border-box}
   body{margin:0}
@@ -39,35 +39,35 @@
   .wrap>*{max-width:100%}
   .full{max-width:100%}
   .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-variant-numeric:tabular-nums}
-  .eyebrow{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--amber); font-weight:700; margin:0 0 12px}
-  h1{font-size:clamp(30px,6vw,50px); line-height:1.04; letter-spacing:-.02em; margin:0 0 16px; font-weight:800; text-wrap:balance}
+  .eyebrow{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--pink); font-weight:700; margin:0 0 12px}
+  h1{font-size:clamp(30px,6vw,50px); line-height:1.04; letter-spacing:-.02em; margin:0 0 16px; font-weight:800; text-wrap:balance; text-shadow:0 0 30px rgba(255,61,181,.42)}
   h2{font-size:clamp(21px,3.5vw,28px); margin:50px 0 6px; font-weight:750; letter-spacing:-.01em; scroll-margin-top:14px; text-wrap:balance}
-  h2 .n{color:var(--amber); font-family:ui-monospace,monospace; font-size:.65em; margin-right:.5em}
+  h2 .n{color:var(--pink); font-family:ui-monospace,monospace; font-size:.65em; margin-right:.5em}
   h3{font-size:18px; margin:22px 0 6px; font-weight:700}
   .lede{font-size:clamp(17px,2.4vw,20px); opacity:.93; margin:0 0 8px}
   p{margin:12px 0}
-  a{color:var(--amber)}
+  a{color:var(--blue)}
   .muted{color:var(--muted)}
   .titlerow{display:flex; align-items:center; gap:28px; flex-wrap:wrap; justify-content:space-between; margin:0 0 16px}
   .titlerow h1{margin:0; flex:1 1 340px}
   .byline{display:flex; align-items:center; gap:18px; margin:0; flex:0 0 auto; margin-left:auto}
   .byline>a{display:block; line-height:0; border-radius:14px}
-  .byline img{height:clamp(108px,13vw,140px); width:auto; border-radius:14px; border:3px solid var(--amber); display:block; box-shadow:0 6px 20px rgba(0,0,0,.45); transition:transform .12s ease, box-shadow .12s ease}
+  .byline img{height:clamp(108px,13vw,140px); width:auto; border-radius:14px; border:3px solid var(--pink); display:block; box-shadow:0 6px 24px rgba(255,61,181,.3); transition:transform .12s ease, box-shadow .12s ease}
   .byline>a:hover img{transform:translateY(-2px); box-shadow:0 8px 26px rgba(0,0,0,.6)}
   .byline .by{font-size:15px; color:var(--muted); text-align:right}
-  .byline .by a{color:var(--amber); font-weight:700; text-decoration:none}
+  .byline .by a{color:var(--pink); font-weight:700; text-decoration:none}
   .byline .by a:hover{text-decoration:underline}
   .byline .by .sub{display:block; font-size:13px; color:var(--faint); margin-top:3px; max-width:42ch}
   /* jargon tooltip — works on hover (desktop) and tap/focus (mobile) */
-  .term{border-bottom:1.5px dotted var(--amber); cursor:help; position:relative; font-weight:600; outline:none}
+  .term{border-bottom:1.5px dotted var(--pink); cursor:help; position:relative; font-weight:600; outline:none}
   .term:hover::after,.term:focus::after{content:attr(data-tip); position:absolute; left:0; bottom:140%;
-    width:min(280px,78vw); background:#0e1014; color:var(--ink); border:1px solid var(--amber);
+    width:min(280px,78vw); background:#160b22; color:var(--ink); border:1px solid var(--pink);
     border-radius:8px; padding:9px 11px; font-size:13.5px; font-weight:400; line-height:1.45; z-index:9; box-shadow:0 6px 22px rgba(0,0,0,.55)}
-  .term:hover::before,.term:focus::before{content:""; position:absolute; left:14px; bottom:128%; border:6px solid transparent; border-top-color:var(--amber); z-index:9}
+  .term:hover::before,.term:focus::before{content:""; position:absolute; left:14px; bottom:128%; border:6px solid transparent; border-top-color:var(--pink); z-index:9}
   .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:18px 0}
-  .tldr{background:linear-gradient(180deg,#1f262e,#1a2027); border:1px solid var(--line); border-left:3px solid var(--amber); border-radius:12px; padding:18px 20px; margin:22px 0}
-  .tldr b{color:var(--amber)}
-  .note{border-left:3px solid var(--blue); background:#192029; border-radius:0 10px 10px 0; padding:12px 16px; margin:16px 0; font-size:15.5px}
+  .tldr{background:linear-gradient(180deg,#251838,#1a1129); border:1px solid var(--line); border-left:3px solid var(--pink); border-radius:12px; padding:18px 20px; margin:22px 0}
+  .tldr b{color:var(--pink)}
+  .note{border-left:3px solid var(--blue); background:#171528; border-radius:0 10px 10px 0; padding:12px 16px; margin:16px 0; font-size:15.5px}
   .warn{border-left:3px solid var(--red); background:#241a18; border-radius:0 10px 10px 0; padding:12px 16px; margin:16px 0; font-size:15.5px}
   .warn b,.warn strong{color:var(--red)}
   .ok{color:var(--green); font-weight:700}
@@ -77,19 +77,19 @@
   .cols-gloss{grid-template-columns:1fr}
   /* recipe cards */
   .recipe{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:0; overflow:hidden; margin:0}
-  .recipe>header{padding:15px 20px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; background:#20272f}
+  .recipe>header{padding:15px 20px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; background:#241834}
   .recipe>header .lvl{font-size:11px; letter-spacing:.13em; text-transform:uppercase; font-weight:700; color:var(--c); flex-basis:100%}
   .recipe>header h3{margin:0; font-size:20px}
   .recipe .body{padding:6px 20px 20px}
   .tag{font-size:12px; padding:2px 9px; border-radius:999px; font-weight:700; margin-left:auto}
-  .tag.good{color:var(--green); background:rgba(108,192,138,.13)} .tag.mid{color:var(--amber); background:rgba(227,169,60,.13)} .tag.bad{color:var(--red); background:rgba(224,112,90,.13)}
+  .tag.good{color:var(--green); background:rgba(86,224,143,.14)} .tag.mid{color:var(--amber); background:rgba(255,177,61,.14)} .tag.bad{color:var(--red); background:rgba(255,107,107,.14)}
   .need{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px}
   .need .item{background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:5px 11px; font-size:14px}
   ol.steps{margin:8px 0; padding:0; list-style:none; counter-reset:s}
   ol.steps li{counter-increment:s; position:relative; padding:8px 0 8px 42px; border-bottom:1px solid var(--line)}
   ol.steps li:last-child{border-bottom:none}
   ol.steps li::before{content:counter(s); position:absolute; left:0; top:7px; width:28px; height:28px; border-radius:50%;
-    background:var(--c); color:#14161b; font-weight:800; font-family:ui-monospace,monospace; display:grid; place-items:center; font-size:14px}
+    background:var(--c); color:#140b20; font-weight:800; font-family:ui-monospace,monospace; display:grid; place-items:center; font-size:14px}
   .stat-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px; font-size:14px; color:var(--muted)}
   .stat-row b{color:var(--ink)}
   canvas{width:100%; height:auto; display:block; margin-top:8px}
@@ -101,13 +101,13 @@
   /* property ladder */
   .ladder{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:16px 0}
   .rung{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px}
-  .rung.best{border-color:var(--green); box-shadow:inset 0 0 0 1px rgba(108,192,138,.3)}
+  .rung.best{border-color:var(--green); box-shadow:inset 0 0 0 1px rgba(86,224,143,.35)}
   .rung .nm{font-size:14px; color:var(--muted)} .rung .hp{font-size:22px; font-weight:800; font-family:ui-monospace,monospace} .rung.best .hp{color:var(--green)}
   .toc{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 0; max-width:100%}
   .toc a{font-size:13.5px; text-decoration:none; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 12px}
-  .toc a:hover{color:var(--ink); border-color:var(--amber)}
+  .toc a:hover{color:var(--ink); border-color:var(--pink)}
   .gitem{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px}
-  .gitem dt{font-weight:700; color:var(--amber); margin:0} .gitem dd{margin:4px 0 0; color:var(--muted); font-size:14.5px}
+  .gitem dt{font-weight:700; color:var(--blue); margin:0} .gitem dd{margin:4px 0 0; color:var(--muted); font-size:14.5px}
   footer{margin-top:46px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); line-height:1.7}
   @media(max-width:560px){ .wrap{font-size:16px} .bar{grid-template-columns:78px 1fr} ol.steps li{padding-left:38px} }
   /* comparison table */
@@ -152,7 +152,7 @@
   <br><b>Just want the data?</b> <a href="#compare">Skip straight to the comparison of all methods ↓</a>
   &nbsp;·&nbsp; <b>Prefer one picture?</b> <a href="tldr/">See the visual TLDR →</a></p>
 
-  <div class="note" style="border-left-color:var(--amber);background:#211d14"><i class="ico" aria-label="feedback">💬</i><b>Did this help? Upvote &amp; comment on the forum thread →</b> <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16578875&b=0&a=0" target="_blank" rel="noopener">torn.com forum thread ↗</a>. Spotted something wrong or out of date? Tell me there and I'll fix it — feedback shapes the next update.</div>
+  <div class="note" style="border-left-color:var(--pink);background:#231433"><i class="ico" aria-label="feedback">💬</i><b>Did this help? Upvote &amp; comment on the forum thread →</b> <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16578875&b=0&a=0" target="_blank" rel="noopener">torn.com forum thread ↗</a>. Spotted something wrong or out of date? Tell me there and I'll fix it — feedback shapes the next update.</div>
 
   <nav class="toc full">
     <a href="#basics">1 · Basics</a><a href="#why">2 · Why happy = gains</a><a href="#property">3 · Your property ★</a>
@@ -467,9 +467,9 @@ function draw(){
   [0,5025,10000,15000,20000,25000].forEach(h=>{ctx.fillStyle=css("--faint");ctx.fillText(h>=1000?(h/1000)+"k":h,X(h),y1+8);});
   ctx.strokeStyle=css("--green");ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(X(5025),y0);ctx.lineTo(X(5025),y1);ctx.stroke();ctx.setLineDash([]);
   ctx.fillStyle=css("--green");ctx.textAlign="left";ctx.fillText("max PI ~5,025",X(5025)+6,y0+3);
-  ctx.strokeStyle=css("--amber");ctx.lineWidth=2.6;ctx.beginPath();
+  ctx.strokeStyle=css("--pink");ctx.lineWidth=2.8;ctx.shadowColor=css("--pink");ctx.shadowBlur=14;ctx.beginPath();
   for(let h=0;h<=maxH;h+=200){const x=X(h),y=Y(gpe(h)); h?ctx.lineTo(x,y):ctx.moveTo(x,y);}
-  ctx.stroke();
+  ctx.stroke();ctx.shadowBlur=0;
   ctx.fillStyle=css("--muted");ctx.fillText("← gain per Energy",x0+4,y0+2);
 }
 
