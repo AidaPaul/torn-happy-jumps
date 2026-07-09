@@ -1,0 +1,299 @@
+[
+ {
+  "id": 1,
+  "name": "Premier Fitness",
+  "energy": 5,
+  "strength": 2.0,
+  "speed": 2.0,
+  "defense": 2.0,
+  "dexterity": 2.0
+ },
+ {
+  "id": 2,
+  "name": "Average Joes",
+  "energy": 5,
+  "strength": 2.4,
+  "speed": 2.4,
+  "defense": 2.8,
+  "dexterity": 2.4
+ },
+ {
+  "id": 3,
+  "name": "Woody's Workout Club",
+  "energy": 5,
+  "strength": 2.8,
+  "speed": 3.2,
+  "defense": 3.0,
+  "dexterity": 2.8
+ },
+ {
+  "id": 4,
+  "name": "Beach Bods",
+  "energy": 5,
+  "strength": 3.2,
+  "speed": 3.2,
+  "defense": 3.2,
+  "dexterity": 0.0
+ },
+ {
+  "id": 5,
+  "name": "Silver Gym",
+  "energy": 5,
+  "strength": 3.4,
+  "speed": 3.6,
+  "defense": 3.4,
+  "dexterity": 3.2
+ },
+ {
+  "id": 6,
+  "name": "Pour Femme",
+  "energy": 5,
+  "strength": 3.4,
+  "speed": 3.6,
+  "defense": 3.6,
+  "dexterity": 3.8
+ },
+ {
+  "id": 7,
+  "name": "Davies Den",
+  "energy": 5,
+  "strength": 3.7,
+  "speed": 0.0,
+  "defense": 3.7,
+  "dexterity": 3.7
+ },
+ {
+  "id": 8,
+  "name": "Global Gym",
+  "energy": 5,
+  "strength": 4.0,
+  "speed": 4.0,
+  "defense": 4.0,
+  "dexterity": 4.0
+ },
+ {
+  "id": 9,
+  "name": "Knuckle Heads",
+  "energy": 10,
+  "strength": 4.8,
+  "speed": 4.4,
+  "defense": 4.0,
+  "dexterity": 4.2
+ },
+ {
+  "id": 10,
+  "name": "Pioneer Fitness",
+  "energy": 10,
+  "strength": 4.4,
+  "speed": 4.5,
+  "defense": 4.8,
+  "dexterity": 4.4
+ },
+ {
+  "id": 11,
+  "name": "Anabolic Anomalies",
+  "energy": 10,
+  "strength": 5.0,
+  "speed": 4.5,
+  "defense": 5.2,
+  "dexterity": 4.5
+ },
+ {
+  "id": 12,
+  "name": "Core",
+  "energy": 10,
+  "strength": 5.0,
+  "speed": 5.2,
+  "defense": 5.0,
+  "dexterity": 5.0
+ },
+ {
+  "id": 13,
+  "name": "Racing Fitness",
+  "energy": 10,
+  "strength": 5.0,
+  "speed": 5.4,
+  "defense": 4.8,
+  "dexterity": 5.2
+ },
+ {
+  "id": 14,
+  "name": "Complete Cardio",
+  "energy": 10,
+  "strength": 5.5,
+  "speed": 5.8,
+  "defense": 5.5,
+  "dexterity": 5.2
+ },
+ {
+  "id": 15,
+  "name": "Legs, Bums and Tums",
+  "energy": 10,
+  "strength": 0.0,
+  "speed": 5.6,
+  "defense": 5.6,
+  "dexterity": 5.8
+ },
+ {
+  "id": 16,
+  "name": "Deep Burn",
+  "energy": 10,
+  "strength": 6.0,
+  "speed": 6.0,
+  "defense": 6.0,
+  "dexterity": 6.0
+ },
+ {
+  "id": 17,
+  "name": "Apollo Gym",
+  "energy": 10,
+  "strength": 6.0,
+  "speed": 6.2,
+  "defense": 6.4,
+  "dexterity": 6.2
+ },
+ {
+  "id": 18,
+  "name": "Gun Shop",
+  "energy": 10,
+  "strength": 6.6,
+  "speed": 6.4,
+  "defense": 6.2,
+  "dexterity": 6.2
+ },
+ {
+  "id": 19,
+  "name": "Force Training",
+  "energy": 10,
+  "strength": 6.4,
+  "speed": 6.6,
+  "defense": 6.4,
+  "dexterity": 6.8
+ },
+ {
+  "id": 20,
+  "name": "Cha Cha's",
+  "energy": 10,
+  "strength": 6.4,
+  "speed": 6.4,
+  "defense": 6.8,
+  "dexterity": 7.0
+ },
+ {
+  "id": 21,
+  "name": "Atlas",
+  "energy": 10,
+  "strength": 7.0,
+  "speed": 6.4,
+  "defense": 6.4,
+  "dexterity": 6.6
+ },
+ {
+  "id": 22,
+  "name": "Last Round",
+  "energy": 10,
+  "strength": 6.8,
+  "speed": 6.6,
+  "defense": 7.0,
+  "dexterity": 6.6
+ },
+ {
+  "id": 23,
+  "name": "The Edge",
+  "energy": 10,
+  "strength": 6.8,
+  "speed": 7.0,
+  "defense": 7.0,
+  "dexterity": 6.8
+ },
+ {
+  "id": 24,
+  "name": "George's",
+  "energy": 10,
+  "strength": 7.3,
+  "speed": 7.3,
+  "defense": 7.3,
+  "dexterity": 7.3
+ },
+ {
+  "id": 25,
+  "name": "Balboas Gym",
+  "energy": 25,
+  "strength": 0.0,
+  "speed": 0.0,
+  "defense": 7.5,
+  "dexterity": 7.5
+ },
+ {
+  "id": 26,
+  "name": "Frontline Fitness",
+  "energy": 25,
+  "strength": 7.5,
+  "speed": 7.5,
+  "defense": 0.0,
+  "dexterity": 0.0
+ },
+ {
+  "id": 27,
+  "name": "Gym 3000",
+  "energy": 50,
+  "strength": 8.0,
+  "speed": 0.0,
+  "defense": 0.0,
+  "dexterity": 0.0
+ },
+ {
+  "id": 28,
+  "name": "Mr. Isoyamas",
+  "energy": 50,
+  "strength": 0.0,
+  "speed": 0.0,
+  "defense": 8.0,
+  "dexterity": 0.0
+ },
+ {
+  "id": 29,
+  "name": "Total Rebound",
+  "energy": 50,
+  "strength": 0.0,
+  "speed": 8.0,
+  "defense": 0.0,
+  "dexterity": 0.0
+ },
+ {
+  "id": 30,
+  "name": "Elites",
+  "energy": 50,
+  "strength": 0.0,
+  "speed": 0.0,
+  "defense": 0.0,
+  "dexterity": 8.0
+ },
+ {
+  "id": 31,
+  "name": "The Sports Science Lab",
+  "energy": 25,
+  "strength": 9.0,
+  "speed": 9.0,
+  "defense": 9.0,
+  "dexterity": 9.0
+ },
+ {
+  "id": 32,
+  "name": "Unknown",
+  "energy": 10,
+  "strength": 10.0,
+  "speed": 10.0,
+  "defense": 10.0,
+  "dexterity": 10.0
+ },
+ {
+  "id": 33,
+  "name": "The Jail Gym",
+  "energy": 5,
+  "strength": 3.4,
+  "speed": 3.4,
+  "defense": 4.5,
+  "dexterity": 0.0
+ }
+]
