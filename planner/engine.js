@@ -8,7 +8,7 @@ const TornEngine = (() => {
 
   const C = {
     DAY: 1440, HAPPY_REGEN_INT: 15, HAPPY_REGEN_AMT: 5, BAR_FILL: 300,
-    XAN_E: 250, XAN_H: 75, XAN_CD: 450, ECT_CD: 240,
+    XAN_E: 250, XAN_H: 75, XAN_CD: 450, ECT_CD: 240, ENERGY_CAP: 1000,
     CANDY_CD: { lolli: 30, bigchoc: 30, edvd: 360 },
     CANDY_HAPPY: { lolli: 25, bigchoc: 35, edvd: 2500 },
     CANDY_CD_CAP: 1470, REFILL_E: 150, REFILL_CD: 1440, REFILL_POINTS: 30,
@@ -107,9 +107,6 @@ const TornEngine = (() => {
     return { bigJump, micro };
   }
 
-  const _KIND_ORDER = ['REGEN', 'REGEN_CAP', 'DRUG_OFF', 'BOOSTER_OFF',
-    'XANAX', 'CANDY', 'MISTLETOE', 'CONSOLE', 'ECSTASY', 'REFILL', 'JUMP', 'BASE_TRAIN'];
-
   function _hhmm(minute) {
     const day = Math.floor(minute / C.DAY) + 1;
     const m = minute % C.DAY;
@@ -131,7 +128,7 @@ const TornEngine = (() => {
 
     // ── Accounting — eventsim.py:370-387 ──────────────────────────────────────
     let jumps = 0, microJumps = 0, xanaxUsed = 0, ecstasyUsed = 0, refills = 0, refillsMissed = 0, mistletoeUsed = 0;
-    let regenWasted = 0, energyBase = 0, energyJump = 0, energyConverted = 0, energyRegenApplied = 0;
+    let regenWasted = 0, energyBase = 0, energyJump = 0, energyConverted = 0, energyRegenApplied = 0, xanaxWasted = 0;
     const candiesUsed = { lolli: 0, bigchoc: 0, edvd: 0 };
     const dailyCum = new Array(days).fill(0);
     const dayBaseEnergy = new Array(days).fill(0);
@@ -278,17 +275,36 @@ const TornEngine = (() => {
           jumpTarget = snap15(lastJumpMin + spacing);
           xanSeqStart = jumpTarget - nx * C.XAN_CD;
 
-          // eventsim.py:576-594 xanax intake
+          // eventsim.py:577-616 xanax intake
           if (nx > 0 && xansTaken < nx) {
             const nextXanDue = xanSeqStart + xansTaken * C.XAN_CD;
             if (minute >= nextXanDue && drugCd === 0) {
-              energy = Math.min(energy + C.XAN_E, 9999);
+              // xan#1 of a fresh cycle: spend any trainable energy right now, before
+              // banking starts. Xanax adds a flat amount regardless of current energy,
+              // so anything left sitting here would otherwise ride into the bank and
+              // (for a 4-Xan cycle, where 4*XAN_E already equals ENERGY_CAP) be wasted
+              // at the cap for nothing. Skip for console methods: they deliberately
+              // bank every point of energy for the console conversion instead.
+              if (xansTaken === 0 && energy >= ePer && !(bigJump.consoleEnergy > 0)) {
+                const eSpent = Math.floor(energy / ePer) * ePer;
+                const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, eSpent);
+                totalGain += sr.totalGain;
+                energyBase += eSpent;
+                curStat += sr.totalGain;
+                happy = sr.finalHappy;
+                energy -= eSpent;
+                dayBaseEnergy[dayIdx] += eSpent;
+                dayBaseGain[dayIdx] += sr.totalGain;
+              }
+              const added = Math.min(C.XAN_E, C.ENERGY_CAP - energy);
+              xanaxWasted += C.XAN_E - added;
+              energy += added;
               happy = Math.min(happy + C.XAN_H, 99999);
               drugCd = C.XAN_CD;
               xansTaken++;
               xanaxUsed++;
               logEv(minute, dayIdx, 'XANAX', 'xanax',
-                `xan#${xansTaken} energy+=${C.XAN_E} happy+=${C.XAN_H} energy=${energy} drug_cd=${drugCd}`);
+                `xan#${xansTaken} energy+=${added} happy+=${C.XAN_H} energy=${energy} drug_cd=${drugCd}`);
             }
           }
 
@@ -426,12 +442,14 @@ const TornEngine = (() => {
         // base-train hold = union of the big-jump hold and the micro hold
         let bigHold = false;
         if (bigJump) {
-          // eventsim.py:742-756 base-train hold rules
+          // eventsim.py:746-761 base-train hold rules. No "xan seq start arrived" hold:
+          // Xanax adds a flat amount regardless of current energy, so there's nothing to
+          // preserve ahead of xan#1 — that energy is trained inline in the xanax-intake
+          // block instead (right before xan#1 fires), so it isn't wasted at the cap.
           const inBanking = xansTaken > 0;
-          const xanImminent = nx > 0 && xansTaken === 0 && minute >= xanSeqStart;
           const barFilling = nx === 0 && minute >= jumpTarget - C.BAR_FILL;
           const bankForConsole = bigJump.consoleEnergy > 0;
-          bigHold = inBanking || xanImminent || barFilling || bankForConsole;
+          bigHold = inBanking || barFilling || bankForConsole;
         }
         let microHold = false;
         if (micro) {
@@ -479,10 +497,11 @@ const TornEngine = (() => {
       }
     }
 
-    // eventsim.py:791-801 / 306-316 — sort log by (minute, kind order)
-    log.sort((a, b) => (a.minute !== b.minute)
-      ? a.minute - b.minute
-      : _KIND_ORDER.indexOf(a.kind) - _KIND_ORDER.indexOf(b.kind));
+    // eventsim.py:789-796 / 306-313 — stable sort by minute only. A kind-priority
+    // tiebreak can't represent REFILL, which sits *between* the two same-minute
+    // JUMP entries it produces; insertion order already matches true execution
+    // order within a minute, so plain stable sort on minute preserves it.
+    log.sort((a, b) => a.minute - b.minute);
 
     // eventsim.py:803-807 / 443-447 — cumulative daily gain
     let cum = 0;
@@ -493,7 +512,7 @@ const TornEngine = (() => {
 
     return {
       totalGain, jumps, microJumps, xanaxUsed, candiesUsed, ecstasyUsed, refills, refillsMissed,
-      mistletoeUsed, regenWasted, energyBase, energyJump, energyConverted, energyRegenApplied,
+      mistletoeUsed, regenWasted, xanaxWasted, energyBase, energyJump, energyConverted, energyRegenApplied,
       finalEnergy: energy, dailyCum, log, warnings,
     };
   }
