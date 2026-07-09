@@ -64,6 +64,7 @@
   .controls{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:14px 0}
   .field{display:flex; flex-direction:column; gap:6px; min-width:0}
   .field>.lbl{font-size:13px; color:var(--muted); font-weight:600}
+  .field.disabled{opacity:.45; pointer-events:none}
   input[type=number], input[type=text], select{background:var(--panel2); border:1px solid var(--line); color:var(--ink);
     border-radius:10px; padding:11px 12px; font-size:16px; min-height:44px; width:100%; font-family:inherit}
   input:focus, select:focus, button:focus-visible{outline:2px solid var(--pink); outline-offset:1px}
@@ -445,7 +446,23 @@ function applyPreset(key) {
   state.preset = c.preset;
   highlightChip(key);
   updatePresetNote();
+  updateFieldAvailability();
   recompute();
+}
+// Grays out + disables controls that have no effect on the current recipe —
+// eDvD/candy/refill only matter when a big jump exists; interval only matters when micro is on.
+function setFieldDisabled(controlId, disabled) {
+  const el = $(controlId);
+  const field = el.closest('.field') || el;
+  field.classList.toggle('disabled', disabled);
+  if ('disabled' in el) el.disabled = disabled;
+  el.querySelectorAll('button, input, select').forEach(x => x.disabled = disabled);
+}
+function updateFieldAvailability() {
+  const bigOn = +$('#xanJumps').dataset.value > 0;
+  const microIsOn = $('#microOn').checked;
+  ['#xanPer', '#candyType', '#edvdPer', '#refill', '#bigCandyCount'].forEach(id => setFieldDisabled(id, !bigOn));
+  ['#microInterval', '#microCandyCount'].forEach(id => setFieldDisabled(id, !microIsOn));
 }
 function highlightChip(key) {
   $('#chips').querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b.dataset.preset === key));
@@ -493,7 +510,7 @@ function wireControls() {
   });
 }
 // a manual edit keeps the console/mistletoe flags but drops the chip highlight
-function onManualChange() { highlightChip(null); recompute(); }
+function onManualChange() { highlightChip(null); updateFieldAvailability(); recompute(); }
 
 /* --------------------------------------------------------- prices ------- */
 const PRICE_ITEMS = [
