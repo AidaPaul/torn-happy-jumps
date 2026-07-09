@@ -39,6 +39,16 @@
   .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-variant-numeric:tabular-nums}
   .eyebrow{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--pink); font-weight:700; margin:0 0 12px}
   h1{font-size:clamp(28px,6vw,46px); line-height:1.05; letter-spacing:-.02em; margin:0 0 14px; font-weight:800; text-wrap:balance; text-shadow:0 0 30px rgba(255,61,181,.42)}
+  .titlerow{display:flex; align-items:center; gap:28px; flex-wrap:wrap; justify-content:space-between; margin:0 0 16px}
+  .titlerow h1{margin:0; flex:1 1 340px}
+  .byline{display:flex; align-items:center; gap:18px; margin:0; flex:0 0 auto; margin-left:auto}
+  .byline>a{display:block; line-height:0; border-radius:14px}
+  .byline img{height:clamp(108px,13vw,140px); width:auto; border-radius:14px; border:3px solid var(--pink); display:block; box-shadow:0 6px 24px rgba(255,61,181,.3); transition:transform .12s ease, box-shadow .12s ease}
+  .byline>a:hover img{transform:translateY(-2px); box-shadow:0 8px 26px rgba(0,0,0,.6)}
+  .byline .by{font-size:15px; color:var(--muted); text-align:right}
+  .byline .by a{color:var(--pink); font-weight:700; text-decoration:none}
+  .byline .by a:hover{text-decoration:underline}
+  .byline .by .sub{display:block; font-size:13px; color:var(--faint); margin-top:3px; max-width:42ch}
   h2{font-size:clamp(19px,3.5vw,25px); margin:0 0 4px; font-weight:750; letter-spacing:-.01em; text-wrap:balance}
   h3{font-size:16px; margin:22px 0 8px; font-weight:700}
   .lede{font-size:clamp(16px,2.4vw,19px); opacity:.93; margin:0 0 8px}
@@ -73,7 +83,8 @@
   .chip.active{background:var(--pink); color:#140b20; border-color:var(--pink)}
   details{border:1px solid var(--line); border-radius:10px; padding:6px 14px; margin:14px 0; background:var(--panel2)}
   details>summary{cursor:pointer; font-weight:600; font-size:15px; padding:6px 0; color:var(--ink)}
-  .keybox{border:1px solid var(--pink); background:#241a30; border-radius:12px; padding:14px 16px; margin:14px 0}
+  details.keybox-prominent{border-color:var(--pink); background:#241a30}
+  details.keybox-prominent>summary{color:var(--pink)}
   .apirow{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0}
   .apirow input{flex:1 1 200px}
   .btn{min-height:44px; padding:0 18px; border-radius:10px; border:1px solid var(--pink); background:var(--pink);
@@ -130,7 +141,14 @@
 
 <div class="wrap">
   <p class="eyebrow">Torn Happy Jumps</p>
-  <h1>Week planner</h1>
+  <div class="titlerow">
+    <h1>Week planner</h1>
+    <div class="byline">
+      <div class="by">Created by <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener">Aida [4294353]</a> ↗
+        <span class="sub">A Torn player who did the math so you don't have to. Say hi (or send candy) in-game.</span></div>
+      <a href="https://www.torn.com/profiles.php?XID=4294353" target="_blank" rel="noopener"><img src="aida.gif" alt="Aida's avatar" width="364" height="500"></a>
+    </div>
+  </div>
   <p class="lede">Mix and match jumps, see exactly what a week gets you. Same math as
     <a href="./">the guide</a> — Vladar V2.0, simulated minute by minute, right here in your browser.</p>
 
@@ -141,8 +159,9 @@
     <h2>You</h2>
     <p class="sub">Paste a <b>Limited</b>-access Torn API key to pull your stats, gym, happy and perks straight in — or enter them by hand below.</p>
 
-    <div class="keybox">
-      <p class="fine" style="margin:0 0 8px">🔑 <b>Limited access key only</b> — read-only, nothing else needed. Fills in your total stats, active gym, max happy and gym-gain perks.</p>
+    <details id="keyBox" class="keybox-prominent" open>
+      <summary id="keySummary">🔑 Autofill from Torn — Limited key only</summary>
+      <p class="fine" style="margin:8px 0 8px">🔑 <b>Limited access key only</b> — read-only, nothing else needed. Fills in your total stats, active gym, max happy and gym-gain perks.</p>
       <div class="apirow">
         <input type="text" id="apiKey" placeholder="Torn API key" autocomplete="off" spellcheck="false">
         <button type="button" class="btn" id="fillBtn">Autofill</button>
@@ -151,7 +170,7 @@
       <a href="#" id="forgetKey" class="fine">forget saved key</a>
       <div id="fillStatus" class="fine"></div>
       <p class="fine" style="margin-top:10px"><b>Your key never leaves your browser.</b> It's sent straight to api.torn.com and nowhere else — this page has no server, so there's nothing in between.</p>
-    </div>
+    </details>
 
     <details id="manualBox">
       <summary>Enter your stats manually instead</summary>
@@ -330,8 +349,9 @@ async function boot() {
   renderChips();
   renderPriceInputs();
   wireControls();
-  restoreKey();
+  const hadKey = restoreKey();
   applyPreset('xan4lolli');   // default view: the impressive 4-Xan lolli plan
+  if (hadKey) await autofill();
 }
 
 /* ------------------------------------------------------ build player ---- */
@@ -550,7 +570,23 @@ function renderDaily(cum, base) {
 /* ------------------------------------------------------ API autofill ---- */
 function restoreKey() {
   const k = localStorage.getItem('tornApiKey');
-  if (k) { $('#apiKey').value = k; $('#rememberKey').checked = true; }
+  if (k) { $('#apiKey').value = k; $('#rememberKey').checked = true; return true; }
+  return false;
+}
+function collapseKeyBox(u) {
+  const box = $('#keyBox');
+  box.classList.remove('keybox-prominent');
+  box.open = false;
+  const gym = GYMS.find(g => g.id === Number($('#gym').value));
+  const perk = +$('#perkPct').value || 0;
+  const bits = [
+    fmt(u.battlestats.total) + ' stats',
+    gym ? gym.name : null,
+    fmt(u.bars.happy.maximum) + ' happy',
+    perk > 0 ? `+${perk.toFixed(1)}% perk` : null,
+    $('#donator').checked ? 'donator' : null,
+  ].filter(Boolean).join(' · ');
+  $('#keySummary').textContent = '✓ Using your saved key — ' + bits;
 }
 async function autofill() {
   const key = $('#apiKey').value.trim();
@@ -566,9 +602,10 @@ async function autofill() {
     $('#perkPct').value = perkPctFromArrays(u).toFixed(1);
     if ($('#rememberKey').checked) localStorage.setItem('tornApiKey', key);
     $('#fillStatus').textContent = 'filled ✓ (now fetching live prices…)';
-    $('#manualBox').open = true;   // let them see/tweak what came in
+    if (!$('#rememberKey').checked) $('#manualBox').open = true;   // let them see/tweak what came in
     await fillPrices(key);
     $('#fillStatus').textContent = 'filled ✓ with live prices';
+    if ($('#rememberKey').checked) collapseKeyBox(u);
   } catch (e) {
     $('#fillStatus').textContent = 'API error: ' + e.message + ' — enter values manually below';
     $('#manualBox').open = true;
