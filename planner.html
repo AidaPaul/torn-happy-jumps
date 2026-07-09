@@ -73,6 +73,7 @@
   .chip.active{background:var(--pink); color:#140b20; border-color:var(--pink)}
   details{border:1px solid var(--line); border-radius:10px; padding:6px 14px; margin:14px 0; background:var(--panel2)}
   details>summary{cursor:pointer; font-weight:600; font-size:15px; padding:6px 0; color:var(--ink)}
+  .keybox{border:1px solid var(--pink); background:#241a30; border-radius:12px; padding:14px 16px; margin:14px 0}
   .apirow{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0}
   .apirow input{flex:1 1 200px}
   .btn{min-height:44px; padding:0 18px; border-radius:10px; border:1px solid var(--pink); background:var(--pink);
@@ -138,33 +139,10 @@
   <!-- ============================ ZONE: YOU ============================ -->
   <section class="zone" id="zone-you">
     <h2>You</h2>
-    <p class="sub">Your stats and gym. Defaults are a mid-ladder example — edit them, or autofill from Torn.</p>
-    <div class="controls">
-      <div class="field">
-        <span class="lbl">Total battle stats</span>
-        <input type="number" id="statTotal" min="0" step="1" value="25700">
-      </div>
-      <div class="field">
-        <span class="lbl">Gym (ranked by DEF dots)</span>
-        <select id="gym"></select>
-      </div>
-      <div class="field">
-        <span class="lbl">Max happy (your property)</span>
-        <input type="number" id="maxHappy" min="0" step="1" value="5025">
-      </div>
-      <div class="field">
-        <span class="lbl">Gym-gain perk %</span>
-        <input type="number" id="perkPct" min="0" step="0.1" value="2">
-      </div>
-      <div class="field">
-        <span class="lbl">Donator</span>
-        <label class="checkrow"><input type="checkbox" id="donator" checked> +5e / 10min, 150 cap</label>
-      </div>
-    </div>
+    <p class="sub">Paste a <b>Limited</b>-access Torn API key to pull your stats, gym, happy and perks straight in — or enter them by hand below.</p>
 
-    <details id="apiBox">
-      <summary>Autofill from your Torn account (optional)</summary>
-      <p class="fine">Your key stays in your browser — a <b>Public</b> key is enough; nothing is sent anywhere except api.torn.com.</p>
+    <div class="keybox">
+      <p class="fine" style="margin:0 0 8px">🔑 <b>Limited access key only</b> — read-only, nothing else needed. Fills in your total stats, active gym, max happy and gym-gain perks.</p>
       <div class="apirow">
         <input type="text" id="apiKey" placeholder="Torn API key" autocomplete="off" spellcheck="false">
         <button type="button" class="btn" id="fillBtn">Autofill</button>
@@ -172,6 +150,33 @@
       <label class="checkrow"><input type="checkbox" id="rememberKey"> Remember key in this browser</label>
       <a href="#" id="forgetKey" class="fine">forget saved key</a>
       <div id="fillStatus" class="fine"></div>
+      <p class="fine" style="margin-top:10px"><b>Your key never leaves your browser.</b> It's sent straight to api.torn.com and nowhere else — this page has no server, so there's nothing in between.</p>
+    </div>
+
+    <details id="manualBox">
+      <summary>Enter your stats manually instead</summary>
+      <div class="controls">
+        <div class="field">
+          <span class="lbl">Total battle stats</span>
+          <input type="number" id="statTotal" min="0" step="1" placeholder="e.g. 25000">
+        </div>
+        <div class="field">
+          <span class="lbl">Gym (ranked by DEF dots)</span>
+          <select id="gym"></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Max happy (your property)</span>
+          <input type="number" id="maxHappy" min="0" step="1" placeholder="e.g. 5025">
+        </div>
+        <div class="field">
+          <span class="lbl">Gym-gain perk %</span>
+          <input type="number" id="perkPct" min="0" step="0.1" placeholder="e.g. 2">
+        </div>
+        <div class="field">
+          <span class="lbl">Donator</span>
+          <label class="checkrow"><input type="checkbox" id="donator" checked> +5e / 10min, 150 cap</label>
+        </div>
+      </div>
     </details>
 
     <details id="priceBox">
@@ -318,10 +323,10 @@ async function boot() {
       'Could not load gym/price data. If you opened this file directly, serve it over http (python -m http.server) or use the live site.';
     return;
   }
-  $('#gym').innerHTML = GYMS.filter(g => g.defense > 0)
+  $('#gym').innerHTML = '<option value="" disabled selected>— choose your gym —</option>' +
+    GYMS.filter(g => g.defense > 0)
     .sort((a, b) => a.defense - b.defense || a.energy - b.energy)
     .map(g => `<option value="${g.id}">${g.name} — ${g.defense.toFixed(1)} DEF dots, ${g.energy}e</option>`).join('');
-  $('#gym').value = '9';         // Knuckle Heads default (mid-ladder example default)
   renderChips();
   renderPriceInputs();
   wireControls();
@@ -352,8 +357,23 @@ function buildRecipe() {
                            candyCount: $('#microCandyCount').value === '' ? 'auto' : +$('#microCandyCount').value };
   return rec;
 }
+function isReady() {
+  return (+$('#statTotal').value || 0) > 0 && (+$('#maxHappy').value || 0) > 0 && $('#gym').value !== '';
+}
+function renderEmptyState() {
+  $('#headGain').textContent = 'Paste your key above, or enter your stats manually';
+  $('#headExtra').textContent = '';
+  $('#cost').textContent = '—';
+  $('#shopping').innerHTML = '';
+  $('#addiction').textContent = '—';
+  $('#addiction').className = '';
+  $('#warnings').innerHTML = '';
+  $('#timeline').innerHTML = '';
+  $('#dailyBody').innerHTML = '';
+}
 function recompute() {
   if (!PRICES) return;
+  if (!isReady()) { renderEmptyState(); return; }
   const prices = { ...PRICES, ...state.pricesOverride };
   const s = TornEngine.summarize(buildPlayer(), buildRecipe(), prices, 7);
   renderResult(s, prices);
@@ -530,7 +550,7 @@ function renderDaily(cum, base) {
 /* ------------------------------------------------------ API autofill ---- */
 function restoreKey() {
   const k = localStorage.getItem('tornApiKey');
-  if (k) { $('#apiKey').value = k; $('#rememberKey').checked = true; $('#apiBox').open = true; }
+  if (k) { $('#apiKey').value = k; $('#rememberKey').checked = true; }
 }
 async function autofill() {
   const key = $('#apiKey').value.trim();
@@ -546,9 +566,13 @@ async function autofill() {
     $('#perkPct').value = perkPctFromArrays(u).toFixed(1);
     if ($('#rememberKey').checked) localStorage.setItem('tornApiKey', key);
     $('#fillStatus').textContent = 'filled ✓ (now fetching live prices…)';
+    $('#manualBox').open = true;   // let them see/tweak what came in
     await fillPrices(key);
     $('#fillStatus').textContent = 'filled ✓ with live prices';
-  } catch (e) { $('#fillStatus').textContent = 'API error: ' + e.message + ' — enter values manually'; }
+  } catch (e) {
+    $('#fillStatus').textContent = 'API error: ' + e.message + ' — enter values manually below';
+    $('#manualBox').open = true;
+  }
   recompute();
 }
 function perkPctFromArrays(u) {
