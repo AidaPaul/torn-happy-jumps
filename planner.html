@@ -132,6 +132,9 @@
   table.data thead th{background:var(--panel2); color:var(--muted); font-size:11px; letter-spacing:.05em; text-transform:uppercase; font-weight:700}
   table.data th:first-child,table.data tbody th{text-align:left; font-weight:700; color:var(--ink)}
   table.data td{color:var(--muted); font-family:ui-monospace,Menlo,Consolas,monospace}
+  .debuglog{margin:0; padding:12px 14px; font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.6; color:var(--muted); white-space:pre; min-width:560px}
+  .debuglog .k{color:var(--pink)}
   footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--faint); line-height:1.7}
   @media(max-width:560px){ .wrap{font-size:16px} .controls{grid-template-columns:1fr 1fr} }
   @media(max-width:400px){ .controls{grid-template-columns:1fr} }
@@ -315,6 +318,14 @@
         </table>
       </div>
     </details>
+
+    <details id="debugBox">
+      <summary>🐞 Debug: full simulation log</summary>
+      <p class="fine">Every logged event from the actual minute-by-minute run above — nothing hidden. Quiet stretches
+        (energy regenerating, happy holding steady) are already rolled into one "base training" line per day; every
+        Xanax, candy, ecstasy, refill and jump is its own line at the minute it fired.</p>
+      <div class="scroll"><pre id="debugLog" class="debuglog"></pre></div>
+    </details>
   </section>
 
   <footer>
@@ -391,6 +402,7 @@ function renderEmptyState() {
   $('#warnings').innerHTML = '';
   $('#timeline').innerHTML = '';
   $('#dailyBody').innerHTML = '';
+  $('#debugLog').textContent = '';
 }
 function recompute() {
   if (!PRICES) return;
@@ -550,6 +562,13 @@ function renderResult(s, prices) {
   $('#warnings').innerHTML = s.warnings.map(w => `<li>${escAttr(w)}</li>`).join('');
   renderTimeline(r.log);
   renderDaily(r.dailyCum, s.baseline.dailyCum);
+  renderDebugLog(r.log);
+}
+
+function renderDebugLog(log) {
+  const lines = (log || []).map(e =>
+    `${e.hhmm.padEnd(9)} <span class="k">${e.kind.padEnd(11)}</span> ${escAttr(e.detail)}`);
+  $('#debugLog').innerHTML = lines.join('\n') || '(nothing logged)';
 }
 
 const TL_KIND = { XANAX: '💊', MISTLETOE: '🌿', CONSOLE: '🎮', ECSTASY: '✚', REFILL: '🔋', JUMP: '🚀' };
