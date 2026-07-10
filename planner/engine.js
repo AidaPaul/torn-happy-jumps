@@ -118,7 +118,7 @@ const TornEngine = (() => {
   function simulateWeek(player, recipe, days = 7) {
     const { bigJump, micro } = normalizeRecipe(recipe);
 
-    const { statTotal, baseHappy, dots, energyPerTrain: ePer, perkMult, donator } = player;
+    const { statTotal, baseHappy, dots, energyPerTrain: ePer, perkMult, donator, stat = 'defense' } = player;
     const regen = regenParams(donator);
     const totalMinutes = days * C.DAY;
 
@@ -184,7 +184,7 @@ const TornEngine = (() => {
         // eventsim.py:409-426
         if (energy >= ePer) {
           const eSpent = Math.floor(energy / ePer) * ePer;
-          const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, eSpent);
+          const sr = simulateSession(stat, curStat, happy, dots, ePer, perkMult, eSpent);
           totalGain += sr.totalGain;
           energyBase += eSpent;
           curStat += sr.totalGain;
@@ -287,7 +287,7 @@ const TornEngine = (() => {
               // bank every point of energy for the console conversion instead.
               if (xansTaken === 0 && energy >= ePer && !(bigJump.consoleEnergy > 0)) {
                 const eSpent = Math.floor(energy / ePer) * ePer;
-                const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, eSpent);
+                const sr = simulateSession(stat, curStat, happy, dots, ePer, perkMult, eSpent);
                 totalGain += sr.totalGain;
                 energyBase += eSpent;
                 curStat += sr.totalGain;
@@ -350,7 +350,7 @@ const TornEngine = (() => {
             // eventsim.py:678-704 dump the banked energy
             const dumpEnergy = energy;
             if (dumpEnergy >= ePer) {
-              const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, dumpEnergy);
+              const sr = simulateSession(stat, curStat, happy, dots, ePer, perkMult, dumpEnergy);
               totalGain += sr.totalGain;
               energyJump += dumpEnergy;
               curStat += sr.totalGain;
@@ -369,7 +369,7 @@ const TornEngine = (() => {
                 lastRefillMin = minute;
                 logEv(minute, dayIdx, 'REFILL', 'refill', `energy refilled to ${regen.cap} (30 points)`);
                 if (energy >= ePer) {
-                  const sr2 = simulateSession('defense', curStat, happy, dots, ePer, perkMult, energy);
+                  const sr2 = simulateSession(stat, curStat, happy, dots, ePer, perkMult, energy);
                   totalGain += sr2.totalGain;
                   energyJump += energy;
                   curStat += sr2.totalGain;
@@ -421,7 +421,7 @@ const TornEngine = (() => {
             // eventsim.py:220-246 dump the banked energy (session-then-zero)
             const dumpEnergy = energy;
             if (dumpEnergy >= ePer) {
-              const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, dumpEnergy);
+              const sr = simulateSession(stat, curStat, happy, dots, ePer, perkMult, dumpEnergy);
               totalGain += sr.totalGain;
               energyJump += dumpEnergy;
               curStat += sr.totalGain;
@@ -463,7 +463,7 @@ const TornEngine = (() => {
 
         if (!bigHold && !microHold && energy >= ePer) {
           const eSpent = Math.floor(energy / ePer) * ePer;
-          const sr = simulateSession('defense', curStat, happy, dots, ePer, perkMult, eSpent);
+          const sr = simulateSession(stat, curStat, happy, dots, ePer, perkMult, eSpent);
           totalGain += sr.totalGain;
           energyBase += eSpent;
           curStat += sr.totalGain;

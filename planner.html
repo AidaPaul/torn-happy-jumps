@@ -163,6 +163,16 @@
     <h2>You</h2>
     <p class="sub">Paste a <b>Limited</b>-access Torn API key to pull your stats, gym, happy and perks straight in — or enter them by hand below.</p>
 
+    <div class="field" style="max-width:280px; margin:0 0 16px">
+      <span class="lbl">Train</span>
+      <div class="seg" id="trainStat" data-value="defense">
+        <button type="button" data-val="strength">STR</button>
+        <button type="button" data-val="speed">SPD</button>
+        <button type="button" data-val="defense">DEF</button>
+        <button type="button" data-val="dexterity">DEX</button>
+      </div>
+    </div>
+
     <details id="keyBox" class="keybox-prominent" open>
       <summary id="keySummary">🔑 Autofill from Torn — Limited key only</summary>
       <p class="fine" style="margin:8px 0 8px">🔑 <b>Limited access key only</b> — read-only, nothing else needed. Fills in your total stats, active gym, max happy and gym-gain perks.</p>
@@ -184,7 +194,7 @@
           <input type="number" id="statTotal" min="0" step="1" placeholder="e.g. 25000">
         </div>
         <div class="field">
-          <span class="lbl">Gym (ranked by DEF dots)</span>
+          <span class="lbl" id="gymLbl">Gym (ranked by DEF dots)</span>
           <select id="gym"></select>
         </div>
         <div class="field">
@@ -331,7 +341,7 @@
   <footer>
     Deterministic engine — every number here is the same minute-by-minute Vladar V2.0 simulation the
     <a href="./">guide</a> uses, run in your browser. No login; nothing leaves your machine except an optional
-    Torn API call to autofill. Defense-stat gains shown.
+    Torn API call to autofill. Gains shown for your selected training stat.
   </footer>
 </div>
 
@@ -354,10 +364,7 @@ async function boot() {
       'Could not load gym/price data. If you opened this file directly, serve it over http (python -m http.server) or use the live site.';
     return;
   }
-  $('#gym').innerHTML = '<option value="" disabled selected>— choose your gym —</option>' +
-    GYMS.filter(g => g.defense > 0)
-    .sort((a, b) => a.defense - b.defense || a.energy - b.energy)
-    .map(g => `<option value="${g.id}">${g.name} — ${g.defense.toFixed(1)} DEF dots, ${g.energy}e</option>`).join('');
+  renderGymOptions(currentStat());
   renderChips();
   renderPriceInputs();
   wireControls();
@@ -366,11 +373,26 @@ async function boot() {
   if (hadKey) await autofill();
 }
 
+/* ------------------------------------------------------ stat select ----- */
+const STAT_LABELS = { strength: 'STR', speed: 'SPD', defense: 'DEF', dexterity: 'DEX' };
+const STAT_NAMES = { strength: 'Strength', speed: 'Speed', defense: 'Defense', dexterity: 'Dexterity' };
+function currentStat() { return $('#trainStat').dataset.value; }
+function renderGymOptions(stat) {
+  const prev = $('#gym').value;
+  $('#gymLbl').textContent = `Gym (ranked by ${STAT_LABELS[stat]} dots)`;
+  $('#gym').innerHTML = '<option value="" disabled selected>— choose your gym —</option>' +
+    GYMS.filter(g => g[stat] > 0)
+    .sort((a, b) => a[stat] - b[stat] || a.energy - b.energy)
+    .map(g => `<option value="${g.id}">${g.name} — ${g[stat].toFixed(1)} ${STAT_LABELS[stat]} dots, ${g.energy}e</option>`).join('');
+  if (prev && GYMS.some(g => String(g.id) === prev && g[stat] > 0)) $('#gym').value = prev;
+}
+
 /* ------------------------------------------------------ build player ---- */
 function buildPlayer() {
+  const stat = currentStat();
   const g = GYMS.find(x => x.id === Number($('#gym').value)) || GYMS[0];
   return { statTotal: +$('#statTotal').value || 0, baseHappy: +$('#maxHappy').value || 0,
-           dots: g.defense, energyPerTrain: g.energy,
+           dots: g[stat], energyPerTrain: g.energy, stat,
            perkMult: 1 + (+$('#perkPct').value || 0) / 100, donator: $('#donator').checked };
 }
 function buildRecipe() {
@@ -499,6 +521,7 @@ function wireControls() {
     sg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
       sg.dataset.value = b.dataset.val;
       sg.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+      if (sg.id === 'trainStat') renderGymOptions(b.dataset.val);
       onManualChange();
     }));
     // initialise the active button from data-value
@@ -548,7 +571,7 @@ function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&qu
 
 function renderResult(s, prices) {
   const r = s.result;
-  $('#headGain').textContent = `+${fmt(r.totalGain)} DEF this week`;
+  $('#headGain').textContent = `+${fmt(r.totalGain)} ${STAT_LABELS[currentStat()]} this week`;
   $('#headExtra').textContent = s.extraGain > 0.5
     ? `${fmt(s.extraGain)} more than plain training — ${s.costPerExtraStat === null ? 'free' : fmtMoney(s.costPerExtraStat) + ' per extra stat'}`
     : `same as plain training`;
