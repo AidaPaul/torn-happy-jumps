@@ -607,13 +607,26 @@ function renderTimeline(log) {
     const key = d + '|' + e.kind + '|' + (e.item || '') + '|' + Math.floor(e.minute / 15);
     if (seen.has(key)) continue;
     seen.add(key);
-    rows[d].push({ left: (e.minute % 1440) / 1440 * 100, icon, title: e.hhmm + ' ' + (e.detail || '') });
+    rows[d].push({ minute: e.minute % 1440, icon, title: e.hhmm + ' ' + (e.detail || '') });
   }
   const hasAny = rows.some(r => r.length);
-  $('#timeline').innerHTML = rows.map((evs, d) =>
-    `<div class="tl-row"><span class="tl-day">D${d + 1}</span><div class="tl-track">` +
-    evs.map(ev => `<span class="tl-ico" style="left:${ev.left.toFixed(2)}%" title="${escAttr(ev.title)}">${ev.icon}</span>`).join('') +
-    `</div></div>`).join('') +
+  // A big jump fires candy/ecstasy/jump/refill all in the same minute, which would
+  // otherwise place their icons at the identical x — stacking them exactly on top
+  // of each other and visually burying earlier ones. Nudge same-cluster icons apart.
+  const STEP = 2.5;
+  $('#timeline').innerHTML = rows.map((evs, d) => {
+    evs.sort((a, b) => a.minute - b.minute);
+    const placed = [];
+    for (const ev of evs) {
+      let left = ev.minute / 1440 * 100;
+      while (placed.some(p => Math.abs(p - left) < STEP)) left += STEP;
+      ev.left = Math.min(99, left);
+      placed.push(ev.left);
+    }
+    return `<div class="tl-row"><span class="tl-day">D${d + 1}</span><div class="tl-track">` +
+      evs.map(ev => `<span class="tl-ico" style="left:${ev.left.toFixed(2)}%" title="${escAttr(ev.title)}">${ev.icon}</span>`).join('') +
+      `</div></div>`;
+  }).join('') +
     (hasAny ? '' : '<div class="tl-empty">No jumps — steady base training all week.</div>');
 }
 
